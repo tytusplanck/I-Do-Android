@@ -68,7 +68,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener  {
 
-    private static final String TAG = "SignInActivity";
+    private static final String TAG = "LoginActivity";
     private static final int RC_SIGN_IN = 9001;
 
     private TextView mStatusTextView;
@@ -79,6 +79,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private View mLoginFormView;
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+    public FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,6 +184,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         if (currentUser != null) {
             Log.d(TAG, "this wasn't null");
             Intent i = new Intent(LoginActivity.this, MainActivity.class);
+            this.setCurrentUser(currentUser);
+            Session currentSession = Session.getSingletonObject();
+            currentSession.setLoginActivity(LoginActivity.this);
             startActivity(i);
         }
     }
@@ -210,6 +215,14 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
         return password.length() > 4;
+    }
+
+    public FirebaseUser getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(FirebaseUser currentUser) {
+        this.currentUser = currentUser;
     }
 }
 
