@@ -14,4 +14,8 @@
         completions."
     </string>
     <string name="title">I-Do List Summary</string>
+
+    <string name="title_activity_login_success">LoginSuccessActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

@@ -3,7 +3,7 @@ package com.example.tyle.ido;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.tytusplanck.ido.R;
+import com.example.tyle.ido.R;
 
 public class UserProfileActivity extends AppCompatActivity {
 

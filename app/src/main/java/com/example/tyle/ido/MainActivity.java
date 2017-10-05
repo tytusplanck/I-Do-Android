@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.example.tytusplanck.ido.R;
+import com.example.tyle.ido.R;
 
 
 public class MainActivity extends AppCompatActivity {
