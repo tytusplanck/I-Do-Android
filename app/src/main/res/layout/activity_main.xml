@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <EditText
+    <TextView
         android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,22 +15,57 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="52dp"
-            android:layout_height="273dp"
-            android:layout_weight="1"
-            android:text="To Do Default" />
-
-        <TextView
-            android:id="@+id/textView4"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="273dp"
             android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/textView3"
+                android:layout_width="197dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:scrollbars="vertical"
+                android:text="To Do Default">
+
+            </ListView>
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="74dp"
+                android:layout_weight="1"
+                android:onClick="jumpToLists"
+                android:text="View LIsts"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="181dp"
+            android:layout_height="273dp"
+            android:layout_weight="1"
             android:text="Budget" />
+
     </LinearLayout>
+
+    <EditText
+        android:id="@+id/editView1"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_weight="1"
+        android:gravity="top"
+        android:hint="Enter General Notes/Reminders"
+        android:textSize="20sp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar3"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

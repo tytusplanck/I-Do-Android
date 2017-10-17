@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "739433397319-jvkt8pr4t8bo4shnah30nj0tndcn2pc5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tyle.ido",
+            "certificate_hash": "6aec95491289dbdc5b4cd654c15c0b6346901277"
+          }
+        },
+        {
           "client_id": "739433397319-m7oag69i8qb5d2bef0thba971b9nv4ro.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

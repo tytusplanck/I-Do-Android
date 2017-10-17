@@ -9,8 +9,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.example.tyle.ido.R;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /** Called when the user taps the Send button */
-    public void jumpToBudget(View view) {
-        Intent intent = new Intent(this, UserProfileActivity.class);
+    public void jumpToLists(View view) {
+        Intent intent = new Intent(this, ListActivity.class);
         startActivity(intent);
     }
 
