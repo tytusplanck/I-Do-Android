@@ -68,7 +68,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener  {
 
-    private static final String TAG = "SignInActivity";
+    private static final String TAG = "LoginActivity";
     private static final int RC_SIGN_IN = 9001;
 
     private TextView mStatusTextView;
@@ -77,13 +77,22 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     // UI references.
     private View mProgressView;
     private View mLoginFormView;
-    private GoogleApiClient mGoogleApiClient;
+    public GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+    //public FirebaseUser currentUser;
+    //public Session currentSession;
+
+//    UserSession currentUserSession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+//        currentUserSession = UserSession.getSingletonObject();
+//
+//        currentUserSession.setLoginActivity(LoginActivity.this);
 
         findViewById(R.id.sign_in_button).setOnClickListener(this);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -95,6 +104,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+        Log.d(TAG, "Building new Session in login activity");
+        //currentSession = new Session(getApplicationContext());
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
@@ -159,12 +170,13 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 });
     }
 
-    private void signIn() {
+    public void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
+        Log.d(TAG, "Here is the connection from Login: " +  mGoogleApiClient.isConnected());
     }
 
-    private void signOut() {
+    public void signOut() {
         // Firebase sign out
         mAuth.signOut();
 
@@ -176,6 +188,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         updateUI(null);
                     }
                 });
+        Log.d(TAG, "Ya boi logged out.");
     }
 
     private void updateUI(FirebaseUser currentUser) {
@@ -184,6 +197,20 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             Intent i = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(i);
         }
+//        if (currentUser != null) {
+//            Log.d(TAG, "this wasn't null");
+//            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+//            //this.setCurrentUser(currentUser);
+////
+////            UserSession currentUserSession = UserSession.getSingletonObject();
+////            currentUserSession.setLoginActivity(LoginActivity.this);
+//
+//            startActivity(i);
+//        }
+//        } else {
+//            Intent i = new Intent(LoginActivity.this, LoginActivity.class);
+//            startActivity(i);
+//        }
     }
 
     @Override
@@ -211,6 +238,14 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         //TODO: Replace this with your own logic
         return password.length() > 4;
     }
+
+//    public FirebaseUser getCurrentUser() {
+//        return currentUser;
+//    }
+//
+//    public void setCurrentUser(FirebaseUser currentUser) {
+//        this.currentUser = currentUser;
+//    }
 }
 
 
