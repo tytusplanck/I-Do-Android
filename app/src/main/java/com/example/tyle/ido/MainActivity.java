@@ -42,21 +42,16 @@ public class MainActivity extends AppCompatActivity {
         FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
         DatabaseReference myRef = mDatabase.getReference("users");
 
-//        ListItem item = new ListItem("sick item");
-//        ToDoList lil = new ToDoList();
-//        lil.toDoList.add(item);
-//        List<ToDoList> big = new ArrayList<>();
-//        big.add(lil);
-
         List<ToDoList> big = new ArrayList<>();
         User user = new User(username, email, big);
         myRef.child(userid).setValue(user);
 
-        DatabaseReference addSome = mDatabase.getReference("users/"+userid);
-        addSome.child("lists").setValue("Food");
+//        DatabaseReference addSome = mDatabase.getReference("users/"+userid);
+//        addSome.child("lists").setValue("Food");
 
-        DatabaseReference addSome2 = mDatabase.getReference("users/"+userid +"/lists/food");
-        addSome2.setValue("Need to buy some food for the wedding.");
+//        DatabaseReference addSome2 = mDatabase.getReference("users/"+userid +"/lists/Hell");
+//        addSome2.push().setValue("Need to buy some food for the wedding.");
+//        addSome2.push().setValue("Not enough food!");
 
 
 //        DatabaseReference addSome2 = mDatabase.getReference("users/"+userid+"list/");

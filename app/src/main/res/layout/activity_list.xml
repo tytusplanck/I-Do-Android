@@ -15,7 +15,7 @@
             android:id="@+id/button3"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Add new Item"
+            android:text="Add new list"
             android:onClick="addList"/>
 
         <Button
