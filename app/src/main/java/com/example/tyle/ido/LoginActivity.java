@@ -194,7 +194,13 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private void updateUI(FirebaseUser currentUser) {
         if (currentUser != null) {
             Log.d(TAG, "this wasn't null");
+            Log.d(TAG, currentUser.getDisplayName());
+            Log.d(TAG, currentUser.getEmail());
+            Log.d(TAG, currentUser.getUid());
             Intent i = new Intent(LoginActivity.this, MainActivity.class);
+            i.putExtra("username", currentUser.getDisplayName());
+            i.putExtra("id", currentUser.getUid());
+            i.putExtra("email", currentUser.getEmail());
             startActivity(i);
         }
 //        if (currentUser != null) {
