@@ -1,34 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.tyle.ido.ListActivity">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="wrap_content"
+        android:layout_height="458dp"/>
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center|bottom"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/button3"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Add new list"
-            android:onClick="addList"/>
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Add new Item"
-            android:onClick="addItems"/>
-
-        <ListView
-            android:id="@android:id/list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:drawSelectorOnTop="false"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center"
+            android:onClick="addList"
+            android:text="Add new list" />
+
     </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+
+</LinearLayout>

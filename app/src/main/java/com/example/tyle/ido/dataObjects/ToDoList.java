@@ -10,14 +10,40 @@ import java.util.List;
 public class ToDoList {
 
     public String name;
-    public List<ListItem> toDoList = new ArrayList<>();
+    public String description;
+    public ArrayList<ListItem> toDoList = new ArrayList<>();
 
     public ToDoList(){
 
     }
 
-    public ToDoList(String name, List<ListItem> toDoList){
+    public ToDoList(String name, String description, ArrayList<ListItem> toDoList){
         this.toDoList = toDoList;
+        this.description = description;
         this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<ListItem> getToDoList() {
+        return toDoList;
+    }
+
+    public void setToDoList(ArrayList<ListItem> toDoList) {
+        this.toDoList = toDoList;
     }
 }

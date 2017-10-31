@@ -12,8 +12,11 @@ import android.view.View;
 import com.example.tyle.ido.dataObjects.ListItem;
 import com.example.tyle.ido.dataObjects.ToDoList;
 import com.example.tyle.ido.dataObjects.User;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,11 +43,22 @@ public class MainActivity extends AppCompatActivity {
         userid = getIntent().getStringExtra("id");
 
         FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = mDatabase.getReference("users");
+        final DatabaseReference myRef = mDatabase.getReference("users");
 
-        List<ToDoList> big = new ArrayList<>();
-        User user = new User(username, email, big);
-        myRef.child(userid).setValue(user);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (!snapshot.hasChild(userid)) {
+                    ArrayList<ToDoList> lists = new ArrayList<>();
+                    User user = new User(username, email, lists);
+                    myRef.child(userid).setValue(user);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
 
 //        DatabaseReference addSome = mDatabase.getReference("users/"+userid);
 //        addSome.child("lists").setValue("Food");
