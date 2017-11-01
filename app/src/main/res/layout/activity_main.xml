@@ -27,12 +27,23 @@
             <ListView
                 android:id="@+id/textView3"
                 android:layout_width="197dp"
-                android:layout_height="match_parent"
+                android:layout_height="196dp"
                 android:layout_weight="1"
                 android:scrollbars="vertical"
                 android:text="To Do Default">
 
             </ListView>
+
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="wrap_content"
+                android:layout_height="74dp"
+                android:layout_weight="1"
+                android:onClick="jumpToVenue"
+                android:text="Search Vendors"
+                android:textSize="10sp" />
+
 
             <Button
                 android:id="@+id/button3"
@@ -63,7 +74,7 @@
     <EditText
         android:id="@+id/editView1"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="305dp"
         android:layout_weight="1"
         android:gravity="top"
         android:hint="Enter General Notes/Reminders"

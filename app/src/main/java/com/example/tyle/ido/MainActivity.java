@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.example.tyle.ido.dataObjects.ListItem;
 import com.example.tyle.ido.dataObjects.ToDoList;
 import com.example.tyle.ido.dataObjects.User;
 import com.google.firebase.database.DataSnapshot;
@@ -19,7 +18,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -76,6 +74,15 @@ public class MainActivity extends AppCompatActivity {
     /** Called when the user taps the Send button */
     public void jumpToLists(View view) {
         Intent intent = new Intent(this, ListActivity.class);
+        intent.putExtra("username", username);
+        intent.putExtra("id", userid);
+        intent.putExtra("email", email);
+        startActivity(intent);
+    }
+
+    /** Called when the user taps the Send button */
+    public void jumpToVenue(View view) {
+        Intent intent = new Intent(this, VenueMapSearch.class);
         intent.putExtra("username", username);
         intent.putExtra("id", userid);
         intent.putExtra("email", email);
