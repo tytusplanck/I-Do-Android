@@ -53,8 +53,11 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_login_success"
             android:theme="@style/FullscreenTheme" />
-        <activity android:name=".ListActivity"
+        <activity
+            android:name=".ListActivity"
             android:parentActivityName=".MainActivity"/>
+        <activity android:name=".IndividualList"
+            android:parentActivityName=".ListActivity"></activity>
     </application>
 
 </manifest>
