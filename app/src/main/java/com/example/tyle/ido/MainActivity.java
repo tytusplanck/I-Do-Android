@@ -26,7 +26,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -157,12 +156,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(item.getItemId() == android.R.id.home) {
+        if (item.getItemId() == android.R.id.home) {
             onBackPressed();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    /** Called when the user taps the Send button */
+    public void jumpToVenue(View view) {
+        Intent intent = new Intent(this, VenueMapSearch.class);
+        intent.putExtra("username", username);
+        intent.putExtra("id", userid);
+        intent.putExtra("email", email);
+        startActivity(intent);
     }
 
 }
