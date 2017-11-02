@@ -62,6 +62,7 @@ public class ListActivity extends AppCompatActivity {
     ListView listView;
     ArrayList<ToDoList> currentList;
     ArrayList<String> currentListNames;
+    ArrayList<String> currentListFirebaseId;
 
     private Context context;
 
@@ -74,6 +75,7 @@ public class ListActivity extends AppCompatActivity {
 
         currentListNames = new ArrayList<>();
         currentList = new ArrayList<>();
+        currentListFirebaseId = new ArrayList<>();
 
         username = getIntent().getStringExtra("username");
         email = getIntent().getStringExtra("email");
@@ -109,6 +111,7 @@ public class ListActivity extends AppCompatActivity {
                 Intent intent = new Intent(context, IndividualList.class);
                 final ToDoList selectedList = currentList.get(position);
                 intent.putExtra("list", selectedList);
+                intent.putExtra("listId", currentListFirebaseId.get(position));
                 startActivityForResult(intent, 1);
             }
         });
@@ -128,6 +131,8 @@ public class ListActivity extends AppCompatActivity {
                 Log.d(TAG, "Length of names list: " + currentListNames.size());
                 currentList.add(newList);
                 Log.d(TAG, "FART ME: " + adapter.toString());
+                currentListFirebaseId.add(dataSnapshot.getKey());
+                Log.d(TAG, "CRAP ME: " + dataSnapshot.getKey());
                 adapter.notifyDataSetChanged();
             }
 
@@ -217,7 +222,7 @@ public class ListActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        
+
     }
 
 //    @Override
