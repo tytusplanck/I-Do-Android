@@ -57,7 +57,7 @@ public class ListActivity extends AppCompatActivity {
     LayoutInflater inflater;
     private String name;
     private String des;
-    private ArrayAdapter<String> adapter;
+//    private ArrayAdapter<String> adapter;
 
     ListView listView;
     ArrayList<ToDoList> currentList;
@@ -78,8 +78,6 @@ public class ListActivity extends AppCompatActivity {
         username = getIntent().getStringExtra("username");
         email = getIntent().getStringExtra("email");
         userid = getIntent().getStringExtra("id");
-        Log.d(TAG, "HELP: " + username);
-        currentList = getIntent().getParcelableArrayListExtra("currentUserList");
 
 
         for (int i = 0; i < currentList.size(); i++){
@@ -92,84 +90,16 @@ public class ListActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_list);
 
-        final DatabaseReference listRef = FirebaseDatabase.getInstance().getReference("users/" + userid + "/lists");
-        Log.d(TAG, listRef.toString());
-
-    }
-
-
-    public void addList(View v) {
-        final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = mDatabase.getReference("users");
-
-        final AlertDialog.Builder builder = new AlertDialog.Builder(ListActivity.this);
-
-        final Context context = builder.getContext();
-        final LayoutInflater inflater = LayoutInflater.from(context);
-        final View view = inflater.inflate(R.layout.new_list_dialog, null, false);
-        final EditText listName = (EditText) view.findViewById(R.id.listName);
-        final EditText description = (EditText) view.findViewById(R.id.description);
-
-        builder.setView(view);
-
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                name = listName.getText().toString();
-                des = description.getText().toString();
-
-                DatabaseReference addSome = mDatabase.getReference("users/" + userid);
-
-                ArrayList<ListItem> toDoList = new ArrayList<>();
-                ToDoList newList = new ToDoList(name, des, toDoList);
-                addSome.child("lists").push().setValue(newList);
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-        builder.show();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        setContentView(R.layout.activity_list);
-    }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//
-//        if(item.getItemId() == android.R.id.home) {
-//            onBackPressed();
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        this.finish();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
         SharedPreferences settings = getSharedPreferences("UserInfo", 0);
-        String userid = settings.getString("Username", "").toString();
+        String userid = settings.getString("userid", "").toString();
+        Log.d(TAG, "Fuck: " + userid);
 
         final DatabaseReference listActivity = FirebaseDatabase.getInstance().getReference("users/" + userid + "/lists");
         Log.d(TAG, listActivity.toString());
         Log.d(TAG, String.valueOf(currentList.size()));
 
         listView = (ListView) findViewById(R.id.listview);
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, currentListNames);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, currentListNames);
         listView.setAdapter(adapter);
         context = this;
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -244,5 +174,71 @@ public class ListActivity extends AppCompatActivity {
             }
         };
         listActivity.addChildEventListener(childEventListener);
+
+    }
+
+
+    public void addList(View v) {
+        final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = mDatabase.getReference("users");
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(ListActivity.this);
+
+        final Context context = builder.getContext();
+        final LayoutInflater inflater = LayoutInflater.from(context);
+        final View view = inflater.inflate(R.layout.new_list_dialog, null, false);
+        final EditText listName = (EditText) view.findViewById(R.id.listName);
+        final EditText description = (EditText) view.findViewById(R.id.description);
+
+        builder.setView(view);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                name = listName.getText().toString();
+                des = description.getText().toString();
+
+                DatabaseReference addSome = mDatabase.getReference("users/" + userid);
+
+                ArrayList<ListItem> toDoList = new ArrayList<>();
+                ToDoList newList = new ToDoList(name, des, toDoList);
+                addSome.child("lists").push().setValue(newList);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        
+    }
+
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//
+//        if(item.getItemId() == android.R.id.home) {
+//            onBackPressed();
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }

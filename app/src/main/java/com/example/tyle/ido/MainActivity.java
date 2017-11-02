@@ -149,7 +149,6 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("username", username);
         intent.putExtra("id", userid);
         intent.putExtra("email", email);
-        intent.putExtra("currentUserList", currentUserList);
         startActivity(intent);
     }
 
