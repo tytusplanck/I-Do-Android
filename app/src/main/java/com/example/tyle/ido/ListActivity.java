@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.tyle.ido.dataObjects.ListItem;
 import com.example.tyle.ido.dataObjects.ToDoList;
+import com.example.tyle.ido.dataObjects.User;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,7 +40,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
-public class ListActivity extends Activity {
+public class ListActivity extends AppCompatActivity {
     private static final String TAG = "ListActivity";
 
     int clickCounter = 0;
@@ -46,35 +50,70 @@ public class ListActivity extends Activity {
     //private DatabaseReference mDatabase;
 
 
-    private String username;
+    private String username = "";
     private String email;
     private String userid;
 
     LayoutInflater inflater;
     private String name;
     private String des;
+//    private ArrayAdapter<String> adapter;
 
     ListView listView;
-    ArrayList<ToDoList> currentList = new ArrayList<>();
-    ArrayList<String> currentListNames = new ArrayList<>();
+    ArrayList<ToDoList> currentList;
+    ArrayList<String> currentListNames;
+    ArrayList<String> currentListFirebaseId;
+
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setTitle("My To-Do Lists");
+
+
+        currentListNames = new ArrayList<>();
+        currentList = new ArrayList<>();
+        currentListFirebaseId = new ArrayList<>();
+
         username = getIntent().getStringExtra("username");
-        email = getIntent().getStringExtra("username");
+        email = getIntent().getStringExtra("email");
         userid = getIntent().getStringExtra("id");
+        User.username = username;
+        User.email = email;
+        User.userid = userid;
+
+
+        for (int i = 0; i < currentList.size(); i++){
+            currentListNames.add(currentList.get(i).getName());
+        }
 
         setContentView(R.layout.activity_list);
 
-        final DatabaseReference listRef = FirebaseDatabase.getInstance().getReference("users/" + userid + "/lists");
-        Log.d(TAG, listRef.toString());
+        SharedPreferences settings = getSharedPreferences("UserInfo", 0);
+        String userid = settings.getString("userid", "").toString();
+
+        final DatabaseReference listActivity = FirebaseDatabase.getInstance().getReference("users/" + userid + "/lists");
+        Log.d(TAG, listActivity.toString());
+        Log.d(TAG, String.valueOf(currentList.size()));
 
         listView = (ListView) findViewById(R.id.listview);
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, currentListNames);
         listView.setAdapter(adapter);
-//        inflater = this.getLayoutInflater();
+        context = this;
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                Intent intent = new Intent(context, IndividualList.class);
+                final ToDoList selectedList = currentList.get(position);
+                intent.putExtra("list", selectedList);
+                intent.putExtra("listId", currentListFirebaseId.get(position));
+                startActivityForResult(intent, 1);
+            }
+        });
+        inflater = this.getLayoutInflater();
 
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
@@ -85,10 +124,10 @@ public class ListActivity extends Activity {
                 ArrayList<ListItem> toDoList = new ArrayList<>();
                 ToDoList newList;
                 newList = dataSnapshot.getValue(ToDoList.class);
-                Log.d(TAG, "Here is list info: " + newList.name + newList.description + newList.toDoList);
                 currentListNames.add(newList.name);
                 Log.d(TAG, "Length of names list: " + currentListNames.size());
                 currentList.add(newList);
+                currentListFirebaseId.add(dataSnapshot.getKey());
                 adapter.notifyDataSetChanged();
             }
 
@@ -134,7 +173,7 @@ public class ListActivity extends Activity {
 
             }
         };
-        listRef.addChildEventListener(childEventListener);
+        listActivity.addChildEventListener(childEventListener);
 
     }
 
@@ -175,5 +214,31 @@ public class ListActivity extends Activity {
         builder.show();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
 
+    }
+
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//
+//        if(item.getItemId() == android.R.id.home) {
+//            onBackPressed();
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }

@@ -33,7 +33,6 @@
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="stateHidden" />
-        android:parentActivityName=".MainActivity">
 
         <!-- The meta-data tag is required if you support API level 15 and lower -->
         <meta-data
@@ -56,6 +55,9 @@
             android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".ListActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".IndividualList"
+            android:parentActivityName=".ListActivity"></activity>
             android:parentActivityName=".MainActivity" />
         <activity android:name=".VenueMapSearch"></activity>
     </application>
