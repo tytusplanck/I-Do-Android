@@ -39,7 +39,10 @@ public class MainActivity extends AppCompatActivity {
     private String email;
     private String userid;
 
-    private ArrayList<ToDoList> currentUserList = new ArrayList<>();
+    ListView listView;
+
+    private ArrayList<ToDoList> currentUserList;
+    ArrayList<String> currentListNames;
 
     public User user;
 
@@ -57,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
         User.userid = userid;
         User.email = email;
         User.username = username;
+
+        currentUserList = new ArrayList<>();
+        currentListNames = new ArrayList<>();
 
         FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = mDatabase.getReference("users");
@@ -90,17 +96,23 @@ public class MainActivity extends AppCompatActivity {
         final DatabaseReference listRef = FirebaseDatabase.getInstance().getReference("users/" + userid + "/lists");
         Log.d(TAG, listRef.toString());
 
+        listView = (ListView) findViewById(R.id.listview);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, currentListNames);
+        listView.setAdapter(adapter);
+
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
                 Log.d(TAG, "onChildAdded:" + dataSnapshot.getKey());
 
+                // A new comment has been added, add it to the displayed list
                 ArrayList<ListItem> toDoList = new ArrayList<>();
                 ToDoList newList;
                 newList = dataSnapshot.getValue(ToDoList.class);
-                Log.d(TAG, "Here is list info: " + newList.name + newList.description + newList.toDoList);
+                currentListNames.add(newList.name);
+                Log.d(TAG, "Length of names list: " + currentListNames.size());
                 currentUserList.add(newList);
-                Log.d(TAG, "Current size from main activity in the listener." + String.valueOf(currentUserList.size()));
+                adapter.notifyDataSetChanged();
             }
 
             @Override

@@ -5,12 +5,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/editText"
+    <ListView
+        android:id="@+id/listview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="114dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:text="@string/title" />
 
     <LinearLayout
@@ -24,21 +23,11 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <ListView
-                android:id="@+id/textView3"
-                android:layout_width="197dp"
-                android:layout_height="196dp"
-                android:layout_weight="1"
-                android:scrollbars="vertical"
-                android:text="To Do Default">
-
-            </ListView>
-
 
             <Button
                 android:id="@+id/button4"
-                android:layout_width="wrap_content"
-                android:layout_height="74dp"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
                 android:layout_weight="1"
                 android:onClick="jumpToVenue"
                 android:text="Search Vendors"
@@ -48,7 +37,7 @@
             <Button
                 android:id="@+id/button3"
                 android:layout_width="wrap_content"
-                android:layout_height="74dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="jumpToLists"
                 android:text="View LIsts"

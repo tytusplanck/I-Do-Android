@@ -80,21 +80,19 @@ public class ListActivity extends AppCompatActivity {
         username = getIntent().getStringExtra("username");
         email = getIntent().getStringExtra("email");
         userid = getIntent().getStringExtra("id");
+        User.username = username;
+        User.email = email;
+        User.userid = userid;
 
 
         for (int i = 0; i < currentList.size(); i++){
             currentListNames.add(currentList.get(i).getName());
         }
 
-        User.username = username;
-        User.email = email;
-        User.userid = userid;
-
         setContentView(R.layout.activity_list);
 
         SharedPreferences settings = getSharedPreferences("UserInfo", 0);
         String userid = settings.getString("userid", "").toString();
-        Log.d(TAG, "Fuck: " + userid);
 
         final DatabaseReference listActivity = FirebaseDatabase.getInstance().getReference("users/" + userid + "/lists");
         Log.d(TAG, listActivity.toString());
@@ -126,13 +124,10 @@ public class ListActivity extends AppCompatActivity {
                 ArrayList<ListItem> toDoList = new ArrayList<>();
                 ToDoList newList;
                 newList = dataSnapshot.getValue(ToDoList.class);
-                Log.d(TAG, "Here is list info: " + newList.name + newList.description + newList.toDoList);
                 currentListNames.add(newList.name);
                 Log.d(TAG, "Length of names list: " + currentListNames.size());
                 currentList.add(newList);
-                Log.d(TAG, "FART ME: " + adapter.toString());
                 currentListFirebaseId.add(dataSnapshot.getKey());
-                Log.d(TAG, "CRAP ME: " + dataSnapshot.getKey());
                 adapter.notifyDataSetChanged();
             }
 
