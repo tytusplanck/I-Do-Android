@@ -13,6 +13,7 @@ public class VenueMapSearch extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_venue_map_search);
+        setTitle("Vendor Search");
 
         //jumpToMaps(theText);
 
@@ -26,6 +27,12 @@ public class VenueMapSearch extends AppCompatActivity {
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
         startActivity(mapIntent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.finish();
     }
 
 }
