@@ -109,18 +109,18 @@ public class IndividualList extends AppCompatActivity {
                     currentListItemsNames.add(newItem.name);
                     selectedList.toDoList.add(newItem);
                     currentListItems.add(newItem);
-                    if(newItem.isCompleted == 0){
-                        for(int u = 0; u < currentListItemsNames.size(); u++){
-                            if(currentListItems.get(u).name.equals(newItem.name)) {
-                                if(newItem.isCompleted == 0) {
+                    Log.d(TAG, "Tryiung to find the value idiot: " + newItem.isCompleted);
+                        for(int u = 0; u < currentListItemsNames.size(); u++) {
+                            if (currentListItems.get(u).name.equals(newItem.name)) {
+                                if (newItem.isCompleted == 0) {
                                     Log.d(TAG, "Solid try moron");
                                     listView.setItemChecked(u, false);
                                 } else {
+                                    Log.d(TAG, "I literally hate you moron");
                                     listView.setItemChecked(u, true);
                                 }
                             }
                         }
-                    }
                     Log.d(TAG, "Length of names list: " + currentListItemsNames.size());
                     adapter.notifyDataSetChanged();
                 }
