@@ -25,23 +25,23 @@
 
 
             <Button
-                android:id="@+id/button4"
-                android:layout_width="match_parent"
-                android:layout_height="4dp"
-                android:layout_weight="1"
-                android:onClick="jumpToVenue"
-                android:text="Search Vendors"
-                android:textSize="10sp" />
-
-
-            <Button
                 android:id="@+id/button3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="132dp"
                 android:layout_weight="1"
                 android:onClick="jumpToLists"
                 android:text="View LIsts"
-                android:textSize="10sp" />
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="match_parent"
+                android:layout_height="136dp"
+                android:layout_weight="1"
+                android:onClick="jumpToVenue"
+                android:text="Search Vendors"
+                android:textSize="12sp" />
+
         </LinearLayout>
 
         <TextView
