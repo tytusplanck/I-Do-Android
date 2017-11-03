@@ -12,14 +12,17 @@ import java.util.List;
 public class ListItem implements Parcelable{
 
     public String name;
-    public String cost;
+    public double cost;
+    public int isCompleted = 0;
 
     public ListItem(){
 
     }
 
-    public ListItem(String name){
+    public ListItem(String name, double cost, int isCompleted){
         this.name = name;
+        this.cost = cost;
+        this.isCompleted = isCompleted;
     }
 
     public String getName() {
@@ -30,15 +33,31 @@ public class ListItem implements Parcelable{
         this.name = name;
     }
 
+    public double getCost() {
+        return cost;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
+
+    public int getIsCompleted() {
+        return isCompleted;
+    }
+
+    public void setIsCompleted(int isCompleted) {
+        this.isCompleted = isCompleted;
+    }
+
     public void writeToParcel(Parcel out, int flags) {
         out.writeString(name);
-        out.writeString(cost);
+        out.writeDouble(cost);
 
     }
 
     private ListItem(Parcel in) {
         name = in.readString();
-        cost = in.readString();
+        cost = in.readDouble();
     }
 
     public int describeContents() {

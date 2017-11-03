@@ -4,6 +4,7 @@
 
 package com.example.tyle.ido;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> currentListNames;
 
     public User user;
+
+    private Context context;
 
 
     @Override
@@ -99,6 +102,19 @@ public class MainActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.listview);
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, currentListNames);
         listView.setAdapter(adapter);
+
+        context = this;
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                Intent intent = new Intent(context, ListActivity.class);
+                intent.putExtra("username", username);
+                intent.putExtra("id", userid);
+                intent.putExtra("email", email);
+                startActivity(intent);
+            }
+        });
 
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
