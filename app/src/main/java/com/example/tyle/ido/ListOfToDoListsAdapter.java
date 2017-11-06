@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ListAdapter;
@@ -26,6 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -75,7 +77,7 @@ public class ListOfToDoListsAdapter extends BaseExpandableListAdapter {
 
         //final String childText = (String) getChild(groupPosition, childPosition);
         final ListItem childItem = (ListItem) getChild(groupPosition, childPosition);
-        final String toDoListName =  this._listDataHeader.get(groupPosition);
+        final String toDoListName = this._listDataHeader.get(groupPosition);
 
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context
@@ -83,51 +85,68 @@ public class ListOfToDoListsAdapter extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.row_item, null);
         }
 
-//        final DatabaseReference completedRef = FirebaseDatabase.getInstance().getReference("users/" + userid + "/lists/");
-//        completedRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                    if (snapshot.child("name").getValue(String.class) == toDoListName) {
-//                        currentListForChild = snapshot.getKey();
-//                        final DatabaseReference completedRef = FirebaseDatabase.getInstance().getReference("users/" + userid + "/lists/" + currentListForChild);
-//                        for (DataSnapshot secondSnapshot : dataSnapshot.getChildren()) {
-//                            if(secondSnapshot.child("name").getValue(String.class) == childItem.getName()) {
-//                                currentItem = childItem.getName();
-//                                if (childItem.isCompleted == 0) {
-//                                    childItem.setIsCompleted(1);
-//                                    completedRef.child("isCompleted").setValue(1);
-//                                    final ExpandableListView listView = ((ExpandableListView) ((ListActivity) _context).findViewById(R.id.toDoListsView));
-//                                    final int position = listView.getFlatListPosition(ExpandableListView.getPackedPositionForChild(groupPosition, childPosition));
-//                                    listView.setItemChecked(position, true);
-//
-//                                } else {
-//                                    childItem.setIsCompleted(0);
-//                                    final ExpandableListView listView = ((ExpandableListView) ((ListActivity) _context).findViewById(R.id.toDoListsView));
-//                                    final int position = listView.getFlatListPosition(ExpandableListView.getPackedPositionForChild(groupPosition, childPosition));
-//                                    listView.setItemChecked(position, false);
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//
-//
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//            }
-//        });
 
+        CheckBox myCheck = (CheckBox) convertView.findViewById(R.id.myCheckBox);
         TextView txtListChild = (TextView) convertView
                 .findViewById(R.id.lblListItem);
         TextView txtListChildCost = (TextView) convertView
                 .findViewById(R.id.listItemCost);
 
 
-
+        if (childItem.getIsCompleted() == 0) {
+            myCheck.setChecked(false);
+        } else {
+            myCheck.setChecked(true);
+        }
         txtListChild.setText(childItem.getName());
-        txtListChildCost.setText(String.valueOf(childItem.getCost()));
+        DecimalFormat df = new DecimalFormat("#.00");
+        txtListChildCost.setText(String.valueOf("$" + df.format(childItem.getCost())));
+
+        myCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final DatabaseReference completedRef = FirebaseDatabase.getInstance().getReference("users/" + userid + "/lists/");
+                completedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Log.d(TAG, "We in boys");
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            if (snapshot.child("name").getValue(String.class) == toDoListName) {
+                                currentListForChild = snapshot.getKey();
+                                Log.d(TAG, currentListForChild);
+
+                            }
+                            for (DataSnapshot secondSnapshot : snapshot.child("toDoList").getChildren()) {
+                                Log.d(TAG, secondSnapshot.getKey());
+                                if (secondSnapshot.child("name").getValue(String.class) == childItem.getName()) {
+                                    final DatabaseReference completedRef = FirebaseDatabase.getInstance().getReference("users/" + userid + "/lists/" + currentListForChild + "/toDoList/" + secondSnapshot.getKey());
+                                    Log.d(TAG, completedRef.toString());
+                                    currentItem = childItem.getName();
+                                    if (childItem.isCompleted == 0) {
+                                        Log.d(TAG, "Attempting to set stuff");
+                                        childItem.setIsCompleted(1);
+                                        completedRef.child("isCompleted").setValue(1);
+
+                                    } else {
+                                        childItem.setIsCompleted(0);
+                                        completedRef.child("isCompleted").setValue(0);
+                                    }
+                                }
+                                    
+                            }
+
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+            }
+        });
         Log.d(TAG, "Attempted to add child view");
 
 

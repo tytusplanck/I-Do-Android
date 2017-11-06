@@ -5,25 +5,49 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_weight="1"
+        android:ems="10"
+        android:inputType="textAutoComplete|textPersonName"
+        android:text="To-Do Lists"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
     <ListView
         android:id="@+id/listview"
+        style="@style/Widget.AppCompat.ListView"
         android:layout_width="match_parent"
-        android:layout_height="424dp"
+        android:layout_height="300dp"
         android:layout_weight="1"
         android:background="@drawable/border"
+        android:cacheColorHint="@android:color/black"
         android:divider="@drawable/border"
         android:dividerHeight="1dp"
         android:ems="10"
         android:footerDividersEnabled="false"
         android:headerDividersEnabled="false"
-        android:text="@string/title" />
+        android:text="@string/title">
+
+    </ListView>
+
+    <TextView
+        android:id="@+id/editText4"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_weight="1"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Budget"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <TextView
         android:id="@+id/budgetView"
         android:layout_width="match_parent"
-        android:layout_height="128dp"
+        android:layout_height="20dp"
         android:layout_weight="1"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:visibility="visible" />
 
     <LinearLayout

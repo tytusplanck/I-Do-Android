@@ -27,6 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     public User user;
 
     private Context context;
+    double totalCost;
 
 
     @Override
@@ -118,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        totalCost = 0;
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
@@ -130,10 +133,16 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "Length of names list: " + currentListNames.size());
                 currentUserList.add(newList);
 
-                
 
+
+                for(DataSnapshot snap : dataSnapshot.getChildren()) {
+                    for(DataSnapshot snap2 : snap.getChildren()) {
+                        totalCost += snap2.child("cost").getValue(Double.class);
+                    }
+                }
                 budgetView = (TextView) findViewById(R.id.budgetView);
-                budgetView.setText("FART");
+                DecimalFormat df = new DecimalFormat("#.00");
+                budgetView.setText(String.valueOf("Total Cost of To-Do Lists: $" + df.format(totalCost)));
 
                 adapter.notifyDataSetChanged();
             }

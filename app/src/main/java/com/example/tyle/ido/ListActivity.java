@@ -117,6 +117,7 @@ public class ListActivity extends AppCompatActivity {
 
         listAdapter = new ListOfToDoListsAdapter(this, listDataHeader, listDataChild);
 
+        expListView = (ExpandableListView) findViewById(R.id.toDoListsView);
         expListView.setAdapter(listAdapter);
         inflater = this.getLayoutInflater();
 
