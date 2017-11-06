@@ -5,31 +5,26 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <ListView
+        android:id="@+id/listview"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:orientation="horizontal">
+        android:layout_height="424dp"
+        android:layout_weight="1"
+        android:background="@drawable/border"
+        android:divider="@drawable/border"
+        android:dividerHeight="1dp"
+        android:ems="10"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:text="@string/title" />
 
-        <ListView
-            android:id="@+id/listview"
-            android:layout_width="175dp"
-            android:layout_height="285dp"
-            android:background="@drawable/border"
-            android:divider="@drawable/border"
-            android:dividerHeight="1dp"
-            android:ems="10"
-            android:footerDividersEnabled="false"
-            android:headerDividersEnabled="false"
-            android:text="@string/title" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="200dp"
-            android:layout_height="285dp"
-            android:layout_weight="1"
-            android:text="Budget"
-            android:visibility="visible" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/budgetView"
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        android:layout_weight="1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:visibility="visible" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -65,20 +60,5 @@
     <!--android:text="Logout"-->
     <!--android:textStyle="bold" />-->
 
-
-    <EditText
-        android:id="@+id/editView1"
-        android:layout_width="match_parent"
-        android:layout_height="305dp"
-        android:layout_weight="1"
-        android:gravity="top"
-        android:hint="Enter General Notes/Reminders"
-        android:textSize="20sp" />
-
-    <ProgressBar
-        android:id="@+id/progressBar3"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
 </LinearLayout>

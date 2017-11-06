@@ -18,8 +18,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.tyle.ido.dataObjects.ListItem;
@@ -61,10 +63,26 @@ public class ListActivity extends AppCompatActivity {
 
     ListView listView;
     ArrayList<ToDoList> currentList;
-    ArrayList<String> currentListNames;
+    ArrayList<String> currentListNames = new ArrayList<>();
     ArrayList<String> currentListFirebaseId;
 
     private Context context;
+
+    ListOfToDoListsAdapter listAdapter;
+    ExpandableListView expListView;
+    List<String> listDataHeader = new ArrayList<>();
+    HashMap<String, List<ListItem>> listDataChild = new HashMap<>();
+
+    Button add;
+    Button delete;
+
+    private String itemName;
+    private double itemCost;
+    private String listToAddTo;
+
+    ArrayAdapter<String> listSpinnerAdapter;
+    Spinner listSpinner;
+    private String dbVal = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +102,9 @@ public class ListActivity extends AppCompatActivity {
         User.email = email;
         User.userid = userid;
 
+        delete = findViewById(R.id.delete_btn);
 
-        for (int i = 0; i < currentList.size(); i++){
+        for (int i = 0; i < currentList.size(); i++) {
             currentListNames.add(currentList.get(i).getName());
         }
 
@@ -95,24 +114,10 @@ public class ListActivity extends AppCompatActivity {
         String userid = settings.getString("userid", "").toString();
 
         final DatabaseReference listActivity = FirebaseDatabase.getInstance().getReference("users/" + userid + "/lists");
-        Log.d(TAG, listActivity.toString());
-        Log.d(TAG, String.valueOf(currentList.size()));
 
-        listView = (ListView) findViewById(R.id.listview);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, currentListNames);
-        listView.setAdapter(adapter);
-        context = this;
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
-                Intent intent = new Intent(context, IndividualList.class);
-                final ToDoList selectedList = currentList.get(position);
-                intent.putExtra("list", selectedList);
-                intent.putExtra("listId", currentListFirebaseId.get(position));
-                startActivityForResult(intent, 1);
-            }
-        });
+        listAdapter = new ListOfToDoListsAdapter(this, listDataHeader, listDataChild);
+
+        expListView.setAdapter(listAdapter);
         inflater = this.getLayoutInflater();
 
         ChildEventListener childEventListener = new ChildEventListener() {
@@ -120,15 +125,25 @@ public class ListActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
                 Log.d(TAG, "onChildAdded:" + dataSnapshot.getKey());
 
-                // A new comment has been added, add it to the displayed list
                 ArrayList<ListItem> toDoList = new ArrayList<>();
                 ToDoList newList;
                 newList = dataSnapshot.getValue(ToDoList.class);
                 currentListNames.add(newList.name);
-                Log.d(TAG, "Length of names list: " + currentListNames.size());
+                listDataHeader.add(newList.name);
+
+                List<ListItem> items = new ArrayList<>();
+                for (int i = 0; i < newList.toDoList.size(); i++) {
+                    items.add(newList.toDoList.get(i));
+                }
+
+                listDataChild.put(newList.name, items);
+
+
                 currentList.add(newList);
                 currentListFirebaseId.add(dataSnapshot.getKey());
-                adapter.notifyDataSetChanged();
+
+                listAdapter.notifyDataSetChanged();
+
             }
 
             @Override
@@ -138,7 +153,7 @@ public class ListActivity extends AppCompatActivity {
                 ToDoList newList = dataSnapshot.getValue(ToDoList.class);
                 currentList.add(newList);
                 String listKey = dataSnapshot.getKey();
-                adapter.notifyDataSetChanged();
+//                adapter.notifyDataSetChanged();
 
                 //TODO need to use list key to find which to change from the list.
             }
@@ -174,7 +189,6 @@ public class ListActivity extends AppCompatActivity {
             }
         };
         listActivity.addChildEventListener(childEventListener);
-
     }
 
 
@@ -214,6 +228,68 @@ public class ListActivity extends AppCompatActivity {
         builder.show();
     }
 
+    public void addNewItem(View v) {
+        final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(ListActivity.this);
+
+        final Context context = builder.getContext();
+        final LayoutInflater inflater = LayoutInflater.from(context);
+        final View view = inflater.inflate(R.layout.new_item_dialog, null, false);
+        final EditText itemNameET = (EditText) view.findViewById(R.id.itemName);
+        final EditText cost = (EditText) view.findViewById(R.id.cost);
+        listSpinner = view.findViewById(R.id.listSpinner);
+
+        listSpinnerAdapter = new ArrayAdapter<String>(ListActivity.this, android.R.layout.simple_spinner_item, currentListNames);
+        listSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        listSpinner.setAdapter(listSpinnerAdapter);
+
+        builder.setView(view);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                itemName = itemNameET.getText().toString();
+                itemCost = Double.parseDouble(cost.getText().toString());
+                listToAddTo = listSpinner.getSelectedItem().toString();
+
+
+                final DatabaseReference allLists = FirebaseDatabase.getInstance().getReference("users/" + userid + "/lists/");
+                allLists.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            if (snapshot.child("name").getValue(String.class) == listToAddTo) {
+                                dbVal = snapshot.getKey();
+                                DatabaseReference addSome = mDatabase.getReference("users/" + userid + "/lists/" + dbVal + "/toDoList/");
+                                Log.d(TAG, "Addsome: " + addSome.toString());
+
+                                ListItem newItem = new ListItem(itemName, itemCost, 0);
+                                addSome.child(String.valueOf(snapshot.child("toDoList").getChildrenCount())).setValue(newItem);
+
+
+                            }
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -241,4 +317,5 @@ public class ListActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
     }
+
 }

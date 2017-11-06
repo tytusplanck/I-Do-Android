@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.tyle.ido.dataObjects.ListItem;
 import com.example.tyle.ido.dataObjects.ToDoList;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private String userid;
 
     ListView listView;
+    TextView budgetView;
 
     private ArrayList<ToDoList> currentUserList;
     ArrayList<String> currentListNames;
@@ -121,13 +123,18 @@ public class MainActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
                 Log.d(TAG, "onChildAdded:" + dataSnapshot.getKey());
 
-                // A new comment has been added, add it to the displayed list
                 ArrayList<ListItem> toDoList = new ArrayList<>();
                 ToDoList newList;
                 newList = dataSnapshot.getValue(ToDoList.class);
                 currentListNames.add(newList.name);
                 Log.d(TAG, "Length of names list: " + currentListNames.size());
                 currentUserList.add(newList);
+
+                
+
+                budgetView = (TextView) findViewById(R.id.budgetView);
+                budgetView.setText("FART");
+
                 adapter.notifyDataSetChanged();
             }
 

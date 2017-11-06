@@ -40,25 +40,15 @@
             android:value=".MainActivity" />
 
         <activity
-            android:name=".UserProfileActivity"
-            android:parentActivityName=".MainActivity">
-
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-        <activity
             android:name=".LoginSuccessActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_login_success"
             android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".ListActivity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".IndividualList"
-            android:parentActivityName=".ListActivity"></activity>
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"/><![CDATA[
+        android:parentActivityName=".MainActivity" />
+        ]]>
         <activity android:name=".VenueMapSearch"
             android:parentActivityName=".MainActivity"></activity>
     </application>
