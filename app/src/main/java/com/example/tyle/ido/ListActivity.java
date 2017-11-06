@@ -266,7 +266,9 @@ public class ListActivity extends AppCompatActivity {
                                 Log.d(TAG, "Addsome: " + addSome.toString());
 
                                 ListItem newItem = new ListItem(itemName, itemCost, 0);
+                                listDataChild.get(listToAddTo).add(newItem);
                                 addSome.child(String.valueOf(snapshot.child("toDoList").getChildrenCount())).setValue(newItem);
+                                listAdapter.notifyDataSetChanged();
 
 
                             }

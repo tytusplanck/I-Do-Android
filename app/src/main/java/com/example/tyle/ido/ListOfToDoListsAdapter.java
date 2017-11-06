@@ -133,7 +133,7 @@ public class ListOfToDoListsAdapter extends BaseExpandableListAdapter {
                                         completedRef.child("isCompleted").setValue(0);
                                     }
                                 }
-                                    
+
                             }
 
                         }
