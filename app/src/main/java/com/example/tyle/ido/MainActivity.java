@@ -16,10 +16,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tyle.ido.dataObjects.ListItem;
 import com.example.tyle.ido.dataObjects.ToDoList;
 import com.example.tyle.ido.dataObjects.User;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     private static final String TAG = "MainActivity";
+    private FirebaseAuth mAuth;
    // private Session currentSession;
 //    UserSession currentUserSession;
 
@@ -58,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mAuth = FirebaseAuth.getInstance();
 
         SharedPreferences settings = getSharedPreferences("UserInfo", 0);
         userid = settings.getString("userid", "").toString();
@@ -142,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 budgetView = (TextView) findViewById(R.id.budgetView);
                 DecimalFormat df = new DecimalFormat("#.00");
-                budgetView.setText(String.valueOf("Total Cost of To-Do Lists: $" + df.format(totalCost)));
+                budgetView.setText(String.valueOf("Total Cost of To-Do Lists: $" + String.format("%.2f", totalCost)));
 
                 adapter.notifyDataSetChanged();
             }
@@ -194,6 +198,14 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("id", userid);
         intent.putExtra("email", email);
         startActivity(intent);
+    }
+
+    public void logout(View view) {
+        // Firebase sign out
+        mAuth.signOut();
+        Toast.makeText(MainActivity.this, "Successfully Logged Out!", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        MainActivity.this.finish();
     }
 
     @Override

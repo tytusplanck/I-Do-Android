@@ -100,7 +100,7 @@ public class ListOfToDoListsAdapter extends BaseExpandableListAdapter {
         }
         txtListChild.setText(childItem.getName());
         DecimalFormat df = new DecimalFormat("#.00");
-        txtListChildCost.setText(String.valueOf("$" + df.format(childItem.getCost())));
+        txtListChildCost.setText(String.valueOf("$" + String.format("%.2f", childItem.getCost())));
 
         myCheck.setOnClickListener(new View.OnClickListener() {
             @Override

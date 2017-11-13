@@ -89,13 +89,14 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private View mLoginFormView;
     public GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+//    FirebaseUser currentUser;
 
     ArrayList<ToDoList> currentUserList = new ArrayList<>();
 
-    //public FirebaseUser currentUser;
-    //public Session currentSession;
+    public FirebaseUser currentUser;
+    public Session currentSession;
 
-//    UserSession currentUserSession;
+    UserSession currentUserSession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,8 +135,10 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         Log.d(TAG, "Bleahadf: " + mAuth);
-        if (mAuth != null) {
-            FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            currentUser = mAuth.getCurrentUser();
+            Log.d(TAG, "Name: " + currentUser.getDisplayName());
             SharedPreferences settings = getSharedPreferences("UserInfo", 0);
             SharedPreferences.Editor editor = settings.edit();
             editor.putString("username", currentUser.getDisplayName());
