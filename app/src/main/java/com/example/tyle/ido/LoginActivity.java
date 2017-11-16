@@ -84,6 +84,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private TextView mStatusTextView;
     private ProgressDialog mProgressDialog;
 
+    private ProgressDialog progress;
+
     // UI references.
     private View mProgressView;
     private View mLoginFormView;
@@ -138,13 +140,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             currentUser = mAuth.getCurrentUser();
-            Log.d(TAG, "Name: " + currentUser.getDisplayName());
-            SharedPreferences settings = getSharedPreferences("UserInfo", 0);
-            SharedPreferences.Editor editor = settings.edit();
-            editor.putString("username", currentUser.getDisplayName());
-            editor.putString("email", currentUser.getEmail());
-            editor.putString("userid", currentUser.getUid());
-            editor.commit();
             updateUI(currentUser);
         }
 
@@ -195,8 +190,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     public void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+
+        //progress = ProgressDialog.show(LoginActivity.this, "Loading", "Loading", true);
+
         startActivityForResult(signInIntent, RC_SIGN_IN);
         Log.d(TAG, "Here is the connection from Login: " + mGoogleApiClient.isConnected());
+        progress = ProgressDialog.show(LoginActivity.this, "Loading", "Loading", true);
     }
 
     public void signOut() {
@@ -220,6 +219,17 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             Log.d(TAG, currentUser.getDisplayName());
             Log.d(TAG, currentUser.getEmail());
             Log.d(TAG, currentUser.getUid());
+
+            Log.d(TAG, "Name: " + currentUser.getDisplayName());
+            SharedPreferences settings = getSharedPreferences("UserInfo", 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString("username", currentUser.getDisplayName());
+            editor.putString("email", currentUser.getEmail());
+            editor.putString("userid", currentUser.getUid());
+            editor.commit();
+
+            //dismiss
+            progress.dismiss();
 
             Intent i = new Intent(LoginActivity.this, MainActivity.class);
             i.putExtra("username", currentUser.getDisplayName());

@@ -4,6 +4,7 @@
 
 package com.example.tyle.ido;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -51,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<ToDoList> currentUserList;
     ArrayList<String> currentListNames;
 
+    private ProgressDialog progress;
+
     public User user;
 
     private Context context;
@@ -67,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
         userid = settings.getString("userid", "").toString();
         username = settings.getString("userName", "").toString();
         email = settings.getString("email", "").toString();
+
+        Log.d(TAG, "Userid from oncreate: " + userid);
 
         User.userid = userid;
         User.email = email;
@@ -103,7 +108,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        progress = ProgressDialog.show(MainActivity.this, "Loading", "Loading", true);
 
+        Log.d(TAG, "Userid: " + userid);
         final DatabaseReference listRef = FirebaseDatabase.getInstance().getReference("users/" + userid + "/lists");
         Log.d(TAG, listRef.toString());
 
@@ -121,6 +128,19 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("id", userid);
                 intent.putExtra("email", email);
                 startActivity(intent);
+            }
+        });
+
+        listRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // the initial data has been loaded, hide the progress bar
+                progress.dismiss();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError firebaseError) {
+
             }
         });
 

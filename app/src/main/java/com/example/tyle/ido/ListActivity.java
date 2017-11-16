@@ -2,6 +2,7 @@ package com.example.tyle.ido;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -48,6 +49,7 @@ public class ListActivity extends AppCompatActivity {
     int clickCounter = 0;
 
     private Button btn;
+    private ProgressDialog progress;
 
     //private DatabaseReference mDatabase;
 
@@ -121,14 +123,30 @@ public class ListActivity extends AppCompatActivity {
         expListView.setAdapter(listAdapter);
         inflater = this.getLayoutInflater();
 
+        listActivity.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // the initial data has been loaded, hide the progress bar
+                progress.dismiss();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError firebaseError) {
+
+            }
+        });
+
         ChildEventListener childEventListener = new ChildEventListener() {
+
+
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
-                Log.d(TAG, "onChildAdded:" + dataSnapshot.getKey());
+                final DataSnapshot ds = dataSnapshot;
 
+                Log.d(TAG, "onChildAdded:" + ds.getKey());
                 ArrayList<ListItem> toDoList = new ArrayList<>();
                 ToDoList newList;
-                newList = dataSnapshot.getValue(ToDoList.class);
+                newList = ds.getValue(ToDoList.class);
                 currentListNames.add(newList.name);
                 listDataHeader.add(newList.name);
 
@@ -141,10 +159,9 @@ public class ListActivity extends AppCompatActivity {
 
 
                 currentList.add(newList);
-                currentListFirebaseId.add(dataSnapshot.getKey());
+                currentListFirebaseId.add(ds.getKey());
 
                 listAdapter.notifyDataSetChanged();
-
             }
 
             @Override
@@ -296,6 +313,8 @@ public class ListActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        progress = ProgressDialog.show(ListActivity.this, "Loading", "Loading", true);
+
 
     }
 
