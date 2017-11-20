@@ -237,20 +237,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             i.putExtra("email", currentUser.getEmail());
             startActivity(i);
         }
-//        if (currentUser != null) {
-//            Log.d(TAG, "this wasn't null");
-//            Intent i = new Intent(LoginActivity.this, MainActivity.class);
-//            //this.setCurrentUser(currentUser);
-////
-////            UserSession currentUserSession = UserSession.getSingletonObject();
-////            currentUserSession.setLoginActivity(LoginActivity.this);
-//
-//            startActivity(i);
-//        }
-//        } else {
-//            Intent i = new Intent(LoginActivity.this, LoginActivity.class);
-//            startActivity(i);
-//        }
     }
 
     @Override
@@ -268,24 +254,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 break;
         }
     }
-
-    private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.contains("@");
-    }
-
-    private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
-    }
-
-//    public FirebaseUser getCurrentUser() {
-//        return currentUser;
-//    }
-//
-//    public void setCurrentUser(FirebaseUser currentUser) {
-//        this.currentUser = currentUser;
-//    }
 }
 
 

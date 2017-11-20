@@ -49,7 +49,7 @@ public class ListActivity extends AppCompatActivity {
     int clickCounter = 0;
 
     private Button btn;
-    private ProgressDialog progress;
+    public ProgressDialog progress;
 
     //private DatabaseReference mDatabase;
 
