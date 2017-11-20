@@ -53,6 +53,9 @@ public class ListActivity extends AppCompatActivity {
 
     //private DatabaseReference mDatabase;
 
+    private Thread t1 = null;
+    private Thread t2 = null;
+
 
     private String username = "";
     private String email;
@@ -145,7 +148,7 @@ public class ListActivity extends AppCompatActivity {
 
                 Log.d(TAG, "onChildAdded:" + ds.getKey());
                 ArrayList<ListItem> toDoList = new ArrayList<>();
-                ToDoList newList;
+                final ToDoList newList;
                 newList = ds.getValue(ToDoList.class);
                 currentListNames.add(newList.name);
                 listDataHeader.add(newList.name);
@@ -157,9 +160,25 @@ public class ListActivity extends AppCompatActivity {
 
                 listDataChild.put(newList.name, items);
 
+                t1 = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        currentList.add(newList);
+                        Log.d(TAG,"Fam we started thread 1");
+                    }
+                });
+                //currentList.add(newList);
+                t2 = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        currentListFirebaseId.add(ds.getKey());
+                        Log.d(TAG,"Fam we started thread 2");
+                    }
+                });
 
-                currentList.add(newList);
-                currentListFirebaseId.add(ds.getKey());
+                t1.start();
+                t2.start();
+                //currentListFirebaseId.add(ds.getKey());
 
                 listAdapter.notifyDataSetChanged();
             }
@@ -283,6 +302,9 @@ public class ListActivity extends AppCompatActivity {
                                 Log.d(TAG, "Addsome: " + addSome.toString());
 
                                 ListItem newItem = new ListItem(itemName, itemCost, 0);
+
+
+                                //possible add threading
                                 listDataChild.get(listToAddTo).add(newItem);
                                 addSome.child(String.valueOf(snapshot.child("toDoList").getChildrenCount())).setValue(newItem);
                                 listAdapter.notifyDataSetChanged();
