@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -335,7 +337,17 @@ public class ListActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        progress = ProgressDialog.show(ListActivity.this, "Loading", "Loading", true);
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager
+                .getActiveNetworkInfo();
+
+        if(networkInfo != null ) {
+            if(networkInfo.isConnected()) {
+                progress = ProgressDialog.show(ListActivity.this, "Loading", "Loading", true);
+            }
+        } else {
+            progress = ProgressDialog.show(ListActivity.this, "Network Connection Failed", "Please try again later.", true);
+        }
 
 
     }

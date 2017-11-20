@@ -10,6 +10,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -110,7 +112,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        progress = ProgressDialog.show(MainActivity.this, "Loading", "Loading", true);
+
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager
+                .getActiveNetworkInfo();
+
+        if(networkInfo != null ) {
+            if(networkInfo.isConnected()) {
+                progress = ProgressDialog.show(MainActivity.this, "Loading", "Loading", true);
+            }
+        } else {
+            progress = ProgressDialog.show(MainActivity.this, "Network Connection Failed", "Please try again later.", true);
+        }
 
         Log.d(TAG, "Userid: " + userid);
         final DatabaseReference listRef = FirebaseDatabase.getInstance().getReference("users/" + userid + "/lists");

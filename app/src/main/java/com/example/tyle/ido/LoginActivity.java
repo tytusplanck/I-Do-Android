@@ -5,9 +5,12 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -100,6 +103,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     UserSession currentUserSession;
 
+    private Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,13 +141,22 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        Log.d(TAG, "Bleahadf: " + mAuth);
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            currentUser = mAuth.getCurrentUser();
-            updateUI(currentUser);
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager
+                .getActiveNetworkInfo();
+
+        if(networkInfo != null ) {
+            if(networkInfo.isConnected()) {
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+                if (currentUser != null) {
+                    currentUser = mAuth.getCurrentUser();
+                    updateUI(currentUser);
+                }
+            }
+        } else {
+            progress = ProgressDialog.show(LoginActivity.this, "Network Connection Failed", "Please try again later.", true);
         }
+
 
 
     }
@@ -196,7 +210,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         startActivityForResult(signInIntent, RC_SIGN_IN);
         Log.d(TAG, "Here is the connection from Login: " + mGoogleApiClient.isConnected());
-        progress = ProgressDialog.show(LoginActivity.this, "Loading", "Loading", true);
+        context = getApplicationContext();
 
     }
 
@@ -253,6 +267,16 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.sign_in_button:
+                ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = connectivityManager
+                        .getActiveNetworkInfo();
+                if(networkInfo != null ) {
+                    if(networkInfo.isConnected()) {
+                        progress = ProgressDialog.show(LoginActivity.this, "Loading", "Loading", true);
+                    }
+                } else {
+                    progress = ProgressDialog.show(LoginActivity.this, "Network Connection Failed", "Please try again later.", true);
+                }
                 signIn();
                 break;
         }
