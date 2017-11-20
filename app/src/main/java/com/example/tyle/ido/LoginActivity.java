@@ -108,6 +108,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 //        currentUserSession = UserSession.getSingletonObject();
 //
 //        currentUserSession.setLoginActivity(LoginActivity.this);
+        progress = new ProgressDialog(LoginActivity.this);
 
         findViewById(R.id.sign_in_button).setOnClickListener(this);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -196,6 +197,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         startActivityForResult(signInIntent, RC_SIGN_IN);
         Log.d(TAG, "Here is the connection from Login: " + mGoogleApiClient.isConnected());
         progress = ProgressDialog.show(LoginActivity.this, "Loading", "Loading", true);
+
     }
 
     public void signOut() {
@@ -230,6 +232,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
             //dismiss
             progress.dismiss();
+
 
             Intent i = new Intent(LoginActivity.this, MainActivity.class);
             i.putExtra("username", currentUser.getDisplayName());

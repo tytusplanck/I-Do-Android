@@ -13,7 +13,7 @@
         android:ems="10"
         android:inputType="textAutoComplete|textPersonName"
         android:text="To-Do Lists"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
     <ListView
         android:id="@+id/listview"
