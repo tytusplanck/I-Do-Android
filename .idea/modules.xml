@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/I-Do-Android.iml" filepath="$PROJECT_DIR$/I-Do-Android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/IDo.iml" filepath="$PROJECT_DIR$/IDo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/I-Do-Android.iml" filepath="$PROJECT_DIR$/.idea/I-Do-Android.iml" />
+      <module fileurl="file://C:\Users\Kenton\Documents\I-Do\I-Do-Android\I-Do-Android.iml" filepath="C:\Users\Kenton\Documents\I-Do\I-Do-Android\I-Do-Android.iml" />
+      <module fileurl="file://C:\Users\Kenton\Documents\I-Do\I-Do-Android\IDo.iml" filepath="C:\Users\Kenton\Documents\I-Do\I-Do-Android\IDo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
