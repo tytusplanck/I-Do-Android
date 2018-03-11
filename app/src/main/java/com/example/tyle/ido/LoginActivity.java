@@ -85,8 +85,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private static final int RC_SIGN_IN = 9001;
 
     private TextView mStatusTextView;
-    private ProgressDialog mProgressDialog;
-
     private ProgressDialog progress;
 
     // UI references.

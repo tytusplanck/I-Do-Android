@@ -27,11 +27,6 @@
             android:name=".LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"
@@ -49,13 +44,22 @@
             android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".ListActivity"
-            android:parentActivityName=".MainActivity"/><![CDATA[
-        android:parentActivityName=".MainActivity" />
-        ]]>
-        <activity android:name=".VenueMapSearch"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".SplashScreen"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <!-- Broadcast receiver declaration in manifest file and make sure to enable it -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".VenueMapSearch"
+            android:parentActivityName=".MainActivity" />
+
     </application>
 
 </manifest>

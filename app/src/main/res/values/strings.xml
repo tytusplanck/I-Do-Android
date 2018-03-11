@@ -1,11 +1,12 @@
 <resources>
     <string name="app_name">I Do</string>
 
-    <!-- Strings related to login -->
+    <!-- Strings related to login/Register -->
     <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
+    <string name="prompt_password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_register">Register</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
@@ -14,9 +15,10 @@
         completions."
     </string>
     <string name="title">I-Do List Summary</string>
+    <string name="welcome_message">Welcome to I-Do!</string>
+    <string name="logo">I-Do logo</string>
 
     <string name="title_activity_login_success">LoginSuccessActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="google_sign_in">Sign in with Google</string>
     <string name="title_activity_venue_maps_search">VenueMapsSearch</string>
 </resources>
