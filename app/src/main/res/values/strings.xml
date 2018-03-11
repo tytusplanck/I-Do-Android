@@ -2,14 +2,24 @@
     <string name="app_name">I Do</string>
 
     <!-- Strings related to login/Register -->
+    <string name="new_user_message">Don\'t have an account?</string>
+    <string name="already_user">Already have an account?</string>
+    <string name="sign_in_here">Sign in here!</string>
     <string name="prompt_email">Email</string>
+    <string name="prompt_login">Login</string>
     <string name="prompt_password">Password</string>
+    <string name="hide_password">Hide Password</string>
+    <string name="show_password">Show Password</string>
+    <string name="forgot_password">Forgot Password?</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="prompt_name">Full Name (First and Last)</string>
     <string name="action_sign_in">Sign in</string>
     <string name="action_register">Register</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_invalid_email">The email address you have entered is invalid</string>
+   <string name="no_email">Please enter an email address</string>
+    <string name="no_password">Please enter a password</string>
+    <string name="error_invalid_password">The password you have entered is invalid</string>
+    <string name="password_confirmation_error">The passwords you have entered do not match</string>
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."

@@ -3,6 +3,9 @@
     <color name="colorPrimary">#cc0000</color>
     <color name="colorPrimaryDark"> #cc0000</color>
     <color name="colorAccent">#778899</color>
-
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="white_grey">#EEEEEE</color>
+    <color name="button_selector">#9E9E9E</color>
     <color name="black_overlay">#66000000</color>
 </resources>

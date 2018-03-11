@@ -7,28 +7,28 @@ import java.util.List;
 
 public class User {
 
-    public static String username;
     public static String email;
     public static String userid;
+    public static String name;
     public static ArrayList<ToDoList> lists;
 
     public User() {
 
     }
 
-    public User(String username, String email, String userid, ArrayList<ToDoList> lists) {
+    public User(String name, String email, String userid, ArrayList<ToDoList> lists) {
         User.email = email;
-        User.username = username;
+        User.name = name;
         User.lists = lists;
         User.userid = userid;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
