@@ -22,7 +22,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,6 +62,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     private EditText emailField, passwordField;
     private Button loginButton;
+    private SignInButton signInButton;
     private TextView forgotPassword, register;
     private CheckBox showHidePassword;
 
@@ -94,6 +94,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         loginButton.setOnClickListener(this);
         forgotPassword.setOnClickListener(this);
         register.setOnClickListener(this);
+        signInButton.setOnClickListener(this);
 
         // Set check listener over checkbox for showing and hiding password
         showHidePassword.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -123,11 +124,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         passwordField = findViewById(R.id.login_password);
         loginButton = findViewById(R.id.loginBtn);
         forgotPassword = findViewById(R.id.forgot_password);
-        register = findViewById(R.id.registration_text);
+        register = findViewById(R.id.createAccount);
         showHidePassword = findViewById(R.id.show_hide_password);
         progress = new ProgressDialog(this);
 
-        SignInButton signInButton = findViewById(R.id.sign_in_button);
+        signInButton = findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
         TextView googleButton = (TextView) signInButton.getChildAt(0);
         googleButton.setText(R.string.google_sign_in);
@@ -232,6 +233,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         if(!matcher.matches()) {
             Toast.makeText(this, "You must enter a valid email address!", Toast.LENGTH_LONG).show();
+            return;
         }
 
 
@@ -317,7 +319,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.registration_text:
+            case R.id.createAccount:
                 if (hasNetworkConnection()) {
                     createAccount(v);
                 } else {

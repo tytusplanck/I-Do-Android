@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
         User.userid = userid;
         User.email = email;
-        User.username = username;
+        User.name = username;
 
         currentUserList = new ArrayList<>();
         currentListNames = new ArrayList<>();
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     User.userid = userid;
                     User.email = email;
-                    User.username = username;
+                    User.name = username;
                 }
 
              }

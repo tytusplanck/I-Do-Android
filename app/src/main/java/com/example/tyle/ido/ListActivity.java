@@ -105,7 +105,7 @@ public class ListActivity extends AppCompatActivity {
         username = getIntent().getStringExtra("username");
         email = getIntent().getStringExtra("email");
         userid = getIntent().getStringExtra("id");
-        User.username = username;
+        User.name = username;
         User.email = email;
         User.userid = userid;
 

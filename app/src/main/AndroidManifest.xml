@@ -47,6 +47,8 @@
             android:parentActivityName=".MainActivity"/>
         <activity android:name=".Registration"
             android:parentActivityName=".LoginActivity" />
+        <activity android:name=".ForgotPassword"
+            android:parentActivityName=".LoginActivity" />
         <activity
             android:name=".SplashScreen"
             android:label="@string/app_name"

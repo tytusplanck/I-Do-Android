@@ -15,6 +15,7 @@
     <string name="prompt_name">Full Name (First and Last)</string>
     <string name="action_sign_in">Sign in</string>
     <string name="action_register">Register</string>
+    <string name="register_link">Register Here!</string>
     <string name="error_invalid_email">The email address you have entered is invalid</string>
    <string name="no_email">Please enter an email address</string>
     <string name="no_password">Please enter a password</string>
@@ -24,10 +25,15 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="forgot_password_title">I-Do....n\'t remember my password?</string>
+    <string name="registered_email">Please enter the email address associated with your account</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
     <string name="title">I-Do List Summary</string>
     <string name="welcome_message">Welcome to I-Do!</string>
     <string name="logo">I-Do logo</string>
 
+    <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
     <string name="title_activity_login_success">LoginSuccessActivity</string>
     <string name="google_sign_in">Sign in with Google</string>
     <string name="title_activity_venue_maps_search">VenueMapsSearch</string>

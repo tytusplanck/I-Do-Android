@@ -10,9 +10,11 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -54,6 +56,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         fullName = findViewById(R.id.fullName);
         Button register = findViewById(R.id.register_button);
         TextView login = findViewById(R.id.sign_in_here);
+
 
 
         authchange = new FirebaseAuth.AuthStateListener() {
@@ -190,9 +193,20 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.registration_text:
+            case R.id.sign_in_here:
                 existingUserLogin(v);
                 break;
             case R.id.register_button:

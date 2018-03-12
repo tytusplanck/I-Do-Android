@@ -10,7 +10,7 @@
     android:background="@color/colorPrimary"
     tools:context="com.example.tyle.ido.LoginActivity">
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/registration_title"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="@string/welcome_message"

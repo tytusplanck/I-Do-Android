@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -14,7 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 /**
  * Class to display a loading screen briefly when the app is started
  */
-public class SplashScreen extends Activity {
+public class SplashScreen extends AppCompatActivity {
 
     private final String TAG = "SPLASHSCREEN";
     private static final int SPLASH_DISPLAY_LENGTH = 1500;
