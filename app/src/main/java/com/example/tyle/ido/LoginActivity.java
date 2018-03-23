@@ -308,7 +308,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             progress.dismiss();
 
 
-            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+            Intent i = new Intent(LoginActivity.this, SMSVerify.class);
             i.putExtra("username", currentUser.getDisplayName());
             i.putExtra("id", currentUser.getUid());
             i.putExtra("email", currentUser.getEmail());
