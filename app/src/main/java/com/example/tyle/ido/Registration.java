@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -68,14 +67,11 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                     Log.d(TAG, "onAuthStateChanged:user signed in");
                     if (mAllowNavigation) {
                         mAllowNavigation = false;
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        SharedPreferences settings = getSharedPreferences("UserInfo", 0);
-                        SharedPreferences.Editor editor = settings.edit();
-                        editor.putString("name", user.getDisplayName());
-                        editor.putString("email", user.getEmail());
-                        editor.putString("userid", user.getUid());
-                        editor.commit();
-                        finish();
+                        Intent i = new Intent(getApplicationContext(), SMSVerify.class);
+                        i.putExtra("username", user.getDisplayName());
+                        i.putExtra("id", user.getUid());
+                        i.putExtra("email", user.getEmail());
+                        startActivity(i);
                     }
                 } else {
                     // User is signed out
@@ -133,7 +129,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
         //TODO: Create a password strength checking algorithm to test initial passwords
         // Check for matching passwords, if the user entered one.
-        if (!TextUtils.isEmpty(password) ) {
+        if (TextUtils.isEmpty(password) ) {
             passwordField.setError(getString(R.string.no_password));
             focusView = passwordField;
             cancel = true;
@@ -173,7 +169,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
                             Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
 
-                            // If sign in fails, display a message to the user. If sign in succeeds
+                            // If registration fails, display a message to the user. If registration succeeds
                             // the auth state listener will be notified and logic to handle the
                             // signed in user can be handled in the listener.
                             if (!task.isSuccessful()) {

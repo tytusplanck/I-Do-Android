@@ -38,16 +38,13 @@
             android:value=".MainActivity" />
 
         <activity
-            android:name=".LoginSuccessActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_login_success"
-            android:theme="@style/FullscreenTheme" />
-        <activity
             android:name=".ListActivity"
             android:parentActivityName=".MainActivity"/>
         <activity android:name=".Registration"
             android:parentActivityName=".LoginActivity" />
         <activity android:name=".ForgotPassword"
+            android:parentActivityName=".LoginActivity" />
+        <activity android:name=".SMSVerify"
             android:parentActivityName=".LoginActivity" />
         <activity
             android:name=".SplashScreen"

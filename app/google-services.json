@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "739433397319-5qcvuuliqp8frds188ruqvvgufhe0047.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tyle.ido",
+            "certificate_hash": "34d82a6625b407fcd6a9fcaef7837c19fcae5213"
+          }
+        },
+        {
           "client_id": "739433397319-jvkt8pr4t8bo4shnah30nj0tndcn2pc5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -47,6 +55,13 @@
         "appinvite_service": {
           "status": 2,
           "other_platform_oauth_client": [
+            {
+              "client_id": "739433397319-73anrmt8l3q569b3ltske5eupurhpmji.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.TIP.I-Do"
+              }
+            },
             {
               "client_id": "739433397319-phss4jod2jn1noein661spvtqhk0lt4p.apps.googleusercontent.com",
               "client_type": 3

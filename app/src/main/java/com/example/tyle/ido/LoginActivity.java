@@ -184,7 +184,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(LoginActivity.this, "Successfully Signed In!", Toast.LENGTH_SHORT).show();
                             progress.dismiss();
-                            updateUI(user);
+                            updateUIVerify(user);
                         } else {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             progress.dismiss();
@@ -271,14 +271,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
      */
     private void onAuthSuccess(FirebaseUser user) {
         //Go to home screen for logged in users
-        startActivity(new Intent(this, MainActivity.class));
-        SharedPreferences settings = getSharedPreferences("UserInfo", 0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString("username", user.getDisplayName());
-        editor.putString("email", user.getEmail());
-        editor.putString("userid", user.getUid());
-        editor.commit();
-        finish();
+        Intent i = new Intent(LoginActivity.this, SMSVerify.class);
+        i.putExtra("username", user.getDisplayName());
+        i.putExtra("id", user.getUid());
+        i.putExtra("email", user.getEmail());
+        startActivity(i);
     }
 
 
@@ -289,13 +286,23 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             Log.d(TAG, currentUser.getEmail());
             Log.d(TAG, currentUser.getUid());
 
-            Log.d(TAG, "Name: " + currentUser.getDisplayName());
-            SharedPreferences settings = getSharedPreferences("UserInfo", 0);
-            SharedPreferences.Editor editor = settings.edit();
-            editor.putString("username", currentUser.getDisplayName());
-            editor.putString("email", currentUser.getEmail());
-            editor.putString("userid", currentUser.getUid());
-            editor.commit();
+            //dismiss
+            progress.dismiss();
+
+            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+            i.putExtra("username", currentUser.getDisplayName());
+            i.putExtra("id", currentUser.getUid());
+            i.putExtra("email", currentUser.getEmail());
+            startActivity(i);
+        }
+    }
+
+    private void updateUIVerify(final FirebaseUser currentUser) {
+        if (currentUser != null) {
+            Log.d(TAG, "this wasn't null");
+            Log.d(TAG, currentUser.getDisplayName());
+            Log.d(TAG, currentUser.getEmail());
+            Log.d(TAG, currentUser.getUid());
 
             //dismiss
             progress.dismiss();

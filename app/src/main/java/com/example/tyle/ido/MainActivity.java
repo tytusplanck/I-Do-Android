@@ -14,7 +14,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -71,9 +73,9 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         SharedPreferences settings = getSharedPreferences("UserInfo", 0);
-        userid = settings.getString("userid", "").toString();
-        username = settings.getString("userName", "").toString();
-        email = settings.getString("email", "").toString();
+        userid = settings.getString("userid", "");
+        username = settings.getString("userName", "");
+        email = settings.getString("email", "");
 
         Log.d(TAG, "Userid from oncreate: " + userid);
 
@@ -83,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
 
         currentUserList = new ArrayList<>();
         currentListNames = new ArrayList<>();
+
+        Toolbar toolbar = findViewById(R.id.main_toolbar);
+        setSupportActionBar(toolbar);
 
         FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = mDatabase.getReference("users");
@@ -114,8 +119,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager
-                .getActiveNetworkInfo();
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
         if(networkInfo != null ) {
             if(networkInfo.isConnected()) {
@@ -138,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                Intent intent = new Intent(context, ListActivity.class);
+                Intent intent = new Intent(MainActivity.this, ListActivity.class);
                 intent.putExtra("username", username);
                 intent.putExtra("id", userid);
                 intent.putExtra("email", email);
@@ -226,6 +230,15 @@ public class MainActivity extends AppCompatActivity {
         listRef.addChildEventListener(childEventListener);
     }
 
+    public void signOut() {
+        // Firebase sign out
+        mAuth.signOut();
+        Toast.makeText(MainActivity.this, "Successfully Logged Out!", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this, LoginActivity.class));
+        finish();
+
+    }
+
     /** Called when the user taps the Send button */
     public void jumpToLists(View view) {
         Intent intent = new Intent(this, ListActivity.class);
@@ -235,23 +248,22 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void logout(View view) {
-        // Firebase sign out
-        mAuth.signOut();
-        Toast.makeText(MainActivity.this, "Successfully Logged Out!", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(MainActivity.this, LoginActivity.class));
-        MainActivity.this.finish();
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_activity, menu);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
+        switch (item.getItemId()) {
+            case R.id.sign_out:
+                signOut();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
     /** Called when the user taps the Send button */
     public void jumpToVenue(View view) {
