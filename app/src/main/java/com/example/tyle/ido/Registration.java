@@ -128,6 +128,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         }
 
         //TODO: Create a password strength checking algorithm to test initial passwords
+        boolean hasUppercase = !password.equals(password.toLowerCase());
+        boolean hasLowercase = !password.equals(password.toUpperCase());
         // Check for matching passwords, if the user entered one.
         if (TextUtils.isEmpty(password) ) {
             passwordField.setError(getString(R.string.no_password));
@@ -135,7 +137,39 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             cancel = true;
         } else if (!confirm_password.equals(password)) {
             passwordField.setError(getString(R.string.password_confirmation_error));
+            focusView = passwordField;
+            cancel = true;
         }
+        /*
+        Check for VALID password
+        Requirement 1: Password must be 8 characters
+        Requirement 2: Password must be contain at least one uppercase letter
+        Requirement 3: Password must contain at least one number
+        Requirement 4: Password must contain a special character
+        Requirement 5: Password must not contain keywords AND/NOT
+        */
+        else if(password.length() < 8){
+            passwordField.setError("Password must be at least 8 characters long");
+            focusView = passwordField;
+            cancel = true;
+        }else if(!hasUppercase || !hasLowercase){
+            passwordField.setError("Password must be have at least one uppercase and one lowercase letter");
+            focusView = passwordField;
+            cancel = true;
+        }else if(!password.matches(".*\\d.*")){
+            passwordField.setError("Password must contain at least one number");
+            focusView = passwordField;
+            cancel = true;
+        }else if(!password.matches(".*[!@#$%^&*].*")){
+            passwordField.setError("Password must contain a special character");
+            focusView = passwordField;
+            cancel = true;
+        }else if(password.contains("AND") || password.contains("NOT")){
+            passwordField.setError("Password must be not contain keywords AND/NOT");
+            focusView = passwordField;
+            cancel = true;
+        }
+
 
         // Check for a valid email address.
 
