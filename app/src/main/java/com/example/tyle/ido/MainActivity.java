@@ -72,10 +72,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
 
-        SharedPreferences settings = getSharedPreferences("UserInfo", 0);
-        userid = settings.getString("userid", "");
-        username = settings.getString("userName", "");
-        email = settings.getString("email", "");
+        Bundle extras = getIntent().getExtras();
+        userid = extras.getString("id", "");
+        username = extras.getString("username", "");
+        email = extras.getString("email", "");
 
         Log.d(TAG, "Userid from oncreate: " + userid);
 
@@ -261,9 +261,21 @@ public class MainActivity extends AppCompatActivity {
             case R.id.sign_out:
                 signOut();
                 return true;
+            case R.id.change_password:
+                changePassword();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+
+    public void changePassword() {
+        Intent intent = new Intent(this, ChangePassword.class);
+        intent.putExtra("username", username);
+        intent.putExtra("id", userid);
+        intent.putExtra("email", email);
+        startActivity(intent);
     }
     /** Called when the user taps the Send button */
     public void jumpToVenue(View view) {
