@@ -93,9 +93,9 @@ public class SMSVerify extends AppCompatActivity implements View.OnClickListener
         // Restore instance state
         if (savedInstanceState != null) { onRestoreInstanceState(savedInstanceState); }
 
-        Bundle extras = getIntent().getExtras();
+        SharedPreferences settings = getSharedPreferences("UserInfo", 0);
         try {
-            user_id = encrypter.decryptText(extras.getString("id", "").getBytes());
+            user_id = encrypter.decryptText(settings.getString("id", "").getBytes());
         } catch (UnrecoverableEntryException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
@@ -120,7 +120,7 @@ public class SMSVerify extends AppCompatActivity implements View.OnClickListener
             e.printStackTrace();
         }
         try {
-            user_name = encrypter.decryptText(extras.getString("username", "").getBytes());
+            user_name = encrypter.decryptText(settings.getString("username", "").getBytes());
         } catch (UnrecoverableEntryException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
@@ -145,7 +145,7 @@ public class SMSVerify extends AppCompatActivity implements View.OnClickListener
             e.printStackTrace();
         }
         try {
-            user_email = encrypter.decryptText(extras.getString("email", "").getBytes());
+            user_email = encrypter.decryptText(settings.getString("email", "").getBytes());
         } catch (UnrecoverableEntryException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {

@@ -87,8 +87,9 @@ public class MainActivity extends AppCompatActivity {
         encrypter = new Encryption();
 
         Bundle extras = getIntent().getExtras();
+        SharedPreferences settings = getSharedPreferences("UserInfo", 0);
         try {
-            userid = encrypter.decryptText(extras.getString("userid", "").getBytes());
+            userid = encrypter.decryptText(settings.getString("userid", "").getBytes());
         } catch (UnrecoverableEntryException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         try {
-            username = encrypter.decryptText(extras.getString("userName", "").getBytes());
+            username = encrypter.decryptText(settings.getString("username", "").getBytes());
         } catch (UnrecoverableEntryException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
@@ -138,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         try {
-            email = encrypter.decryptText(extras.getString("email", "").getBytes());
+            email = encrypter.decryptText(settings.getString("email", "").getBytes());
         } catch (UnrecoverableEntryException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
