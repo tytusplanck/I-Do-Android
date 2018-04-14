@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -115,7 +116,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         String email = emailField.getText().toString();
         String password = passwordField.getText().toString();
         String confirm_password =confirmPassword.getText().toString();
-        String name = fullName.getText().toString();
+        final String name = fullName.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -209,8 +210,11 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                             if (!task.isSuccessful()) {
                                 Toast.makeText(Registration.this, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
+                                Log.d(TAG, "onComplete: Failed=" + task.getException().getMessage());
 
                             } else {
+                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
+                                task.getResult().getUser().updateProfile(profileUpdates);
                                 Toast.makeText(Registration.this, "Successfully Registered!", Toast.LENGTH_SHORT).show();
 
 

@@ -62,24 +62,25 @@ public class Encryption {
     public byte[] encryptText(final String textToEncrypt)
             throws Exception {
 
-        //Makes sure that if no key exists yet it will create one with specified alias and store in KeyStore
-        generateSecretKey();
-
-        final Cipher cipher = Cipher.getInstance(TRANSFORMATION);
-
-
-        //set the cipher to Encrypt mode and call method
-        cipher.init(Cipher.ENCRYPT_MODE, getSecretKey());
-
-        //generate an initialization vector to randomize encryption and avoid repeated occurrences
-        iv = cipher.getIV();
-
-        // Convert String input to a sequence of bytes, then encrypt the data according to the
-        // encryption algorithm specified in the cipher
-        byte[] encryptedData = cipher.doFinal(textToEncrypt.getBytes("UTF-8"));
-
-        // Append the IV to the end of the byte array with the encrypted bytes
-        encryption = appendIVToData(encryptedData, iv);
+//        //Makes sure that if no key exists yet it will create one with specified alias and store in KeyStore
+//        generateSecretKey();
+//
+//        final Cipher cipher = Cipher.getInstance(TRANSFORMATION);
+//
+//
+//        //set the cipher to Encrypt mode and call method
+//        cipher.init(Cipher.ENCRYPT_MODE, getSecretKey());
+//
+//        //generate an initialization vector to randomize encryption and avoid repeated occurrences
+//        iv = cipher.getIV();
+//
+//        // Convert String input to a sequence of bytes, then encrypt the data according to the
+//        // encryption algorithm specified in the cipher
+//        byte[] encryptedData = cipher.doFinal(textToEncrypt.getBytes("UTF-8"));
+//
+//        // Append the IV to the end of the byte array with the encrypted bytes
+//        encryption = appendIVToData(encryptedData, iv);
+        encryption = textToEncrypt.getBytes();
 
         return encryption;
     }
@@ -97,28 +98,28 @@ public class Encryption {
     @NonNull
     private void generateSecretKey() throws NoSuchAlgorithmException,
             NoSuchProviderException, InvalidAlgorithmParameterException, KeyStoreException, IOException, CertificateException {
-
-        //Retrieve the current KeyStore
-        keyStore = KeyStore.getInstance(ANDROID_KEY_STORE);
-        keyStore.load(null);
-
-        //If the current alias is not recognized by the KeyStore it generates a key.
-        if (!keyStore.containsAlias(KEY_ALIAS)){
-            final KeyGenerator keyGenerator = KeyGenerator
-                    .getInstance(KeyProperties.KEY_ALGORITHM_AES, ANDROID_KEY_STORE);
-
-            keyGenerator.init(new KeyGenParameterSpec.Builder(KEY_ALIAS,
-                    KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT)
-                    .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
-                    .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
-                    .build());
-
-            // Generate a key
-            Key k = keyGenerator.generateKey();
-
-            // Store the key in the keystore
-            keyStore.setKeyEntry(KEY_ALIAS, k, null, null);
-        }
+//
+//        //Retrieve the current KeyStore
+//        keyStore = KeyStore.getInstance(ANDROID_KEY_STORE);
+//        keyStore.load(null);
+//
+//        //If the current alias is not recognized by the KeyStore it generates a key.
+//        if (!keyStore.containsAlias(KEY_ALIAS)){
+//            final KeyGenerator keyGenerator = KeyGenerator
+//                    .getInstance(KeyProperties.KEY_ALGORITHM_AES, ANDROID_KEY_STORE);
+//
+//            keyGenerator.init(new KeyGenParameterSpec.Builder(KEY_ALIAS,
+//                    KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT)
+//                    .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
+//                    .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
+//                    .build());
+//
+//            // Generate a key
+//            Key k = keyGenerator.generateKey();
+//
+//            // Store the key in the keystore
+//            keyStore.setKeyEntry(KEY_ALIAS, k, null, null);
+//        }
     }
 
     /**
@@ -184,25 +185,26 @@ public class Encryption {
             NoSuchProviderException, NoSuchPaddingException, InvalidKeyException, IOException,
             BadPaddingException, IllegalBlockSizeException, InvalidAlgorithmParameterException, CertificateException {
 
-        // Return the current keystore
-        keyStore = KeyStore.getInstance(ANDROID_KEY_STORE);
-        keyStore.load(null);
-
-        // Get an instance of the cipher
-        final Cipher cipher = Cipher.getInstance(TRANSFORMATION);
-
-        // Get the initialization vector from the byte array
-        ByteArrayOutputStream encryptedIV = new ByteArrayOutputStream(12);
-        encryptedIV.write(encryptedDataWithIV, encryptedDataWithIV.length -12, 12);
-        iv = encryptedIV.toByteArray();
-
-        // Get the original string from the byte array
-        ByteArrayOutputStream onlydata = new ByteArrayOutputStream();
-        onlydata.write(encryptedDataWithIV, 0, encryptedDataWithIV.length-12);
-        byte[] encryptedData = onlydata.toByteArray();
-
-        // Initialize the cipher and return the decrypted string
-        cipher.init(Cipher.DECRYPT_MODE, getSecretKey(), new GCMParameterSpec(128, iv));
-        return new String(cipher.doFinal(encryptedData), "UTF-8");
+//        // Return the current keystore
+//        keyStore = KeyStore.getInstance(ANDROID_KEY_STORE);
+//        keyStore.load(null);
+//
+//        // Get an instance of the cipher
+//        final Cipher cipher = Cipher.getInstance(TRANSFORMATION);
+//
+//        // Get the initialization vector from the byte array
+//        ByteArrayOutputStream encryptedIV = new ByteArrayOutputStream(12);
+//        encryptedIV.write(encryptedDataWithIV, encryptedDataWithIV.length -12, 12);
+//        iv = encryptedIV.toByteArray();
+//
+//        // Get the original string from the byte array
+//        ByteArrayOutputStream onlydata = new ByteArrayOutputStream();
+//        onlydata.write(encryptedDataWithIV, 0, encryptedDataWithIV.length-12);
+//        byte[] encryptedData = onlydata.toByteArray();
+//
+//        // Initialize the cipher and return the decrypted string
+//        cipher.init(Cipher.DECRYPT_MODE, getSecretKey(), new GCMParameterSpec(128, iv));
+//        return new String(cipher.doFinal(encryptedData), "UTF-8");
+        return new String(encryptedDataWithIV, "UTF-8");
     }
 }

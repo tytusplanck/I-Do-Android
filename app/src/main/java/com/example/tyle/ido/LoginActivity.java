@@ -40,6 +40,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 
 import java.util.ArrayList;
@@ -65,6 +66,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private SignInButton signInButton;
     private TextView forgotPassword, register;
     private CheckBox showHidePassword;
+    private Encryption encrypter;
 
     ArrayList<ToDoList> currentUserList = new ArrayList<>();
 
@@ -73,6 +75,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         setUpViewElements();
+        encrypter = new Encryption();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -147,7 +150,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             editor.putString("email", currentUser.getEmail());
             editor.putString("userid", currentUser.getUid());
             editor.commit();
-            updateUI(currentUser);
+            try {
+                updateUI(currentUser);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -166,7 +173,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 firebaseAuthWithGoogle(account);
             } else {
                 Toast.makeText(LoginActivity.this, "Login Failed!", Toast.LENGTH_SHORT).show();
-                updateUI(null);
+                try {
+                    updateUI(null);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -184,12 +195,20 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(LoginActivity.this, "Successfully Signed In!", Toast.LENGTH_SHORT).show();
                             progress.dismiss();
-                            updateUIVerify(user);
+                            try {
+                                updateUIVerify(user);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         } else {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             progress.dismiss();
                             Toast.makeText(LoginActivity.this, "Login Failed!", Toast.LENGTH_SHORT).show();
-                            updateUI(null);
+                            try {
+                                updateUI(null);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                 });
@@ -251,10 +270,15 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             Log.d(TAG, "signIn:onComplete:" + task.isSuccessful());
                             progress.dismiss();
                             if (task.isSuccessful()) {
-                                onAuthSuccess(task.getResult().getUser());
+                                try {
+                                    onAuthSuccess(task.getResult().getUser());
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             } else {
                                 Toast.makeText(LoginActivity.this, "Sign In Failed",
                                         Toast.LENGTH_SHORT).show();
+                                Log.d(TAG, "signIn:failed:" + task.getException());
                             }
                         }
                     });
@@ -269,17 +293,29 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
      *
      * @param user - the user who's account is currently being logged into
      */
-    private void onAuthSuccess(FirebaseUser user) {
+    private void onAuthSuccess(FirebaseUser user) throws Exception {
         //Go to home screen for logged in users
         Intent i = new Intent(LoginActivity.this, SMSVerify.class);
-        i.putExtra("username", user.getDisplayName());
-        i.putExtra("id", user.getUid());
-        i.putExtra("email", user.getEmail());
+        Log.d(TAG, "this wasn't null");
+        Log.d(TAG, "Shit: " + user.getDisplayName());
+        Log.d(TAG, user.getEmail());
+        Log.d(TAG, user.getUid());
+        byte[] encrptUsername = encrypter.encryptText(user.getDisplayName());
+        byte[] encrptUid = encrypter.encryptText(user.getUid());
+        byte[] encrptEmail = encrypter.encryptText(user.getEmail());
+        i.putExtra("username", "");
+        i.putExtra("id", encrptUid.toString());
+        i.putExtra("email", encrptEmail.toString());
+
+//        i.putExtra("username", currentUser.getDisplayName());
+//        i.putExtra("id", currentUser.getUid());
+//        i.putExtra("email", currentUser.getEmail());
+
         startActivity(i);
     }
 
 
-    private void updateUI(final FirebaseUser currentUser) {
+    private void updateUI(final FirebaseUser currentUser) throws Exception {
         if (currentUser != null) {
             Log.d(TAG, "this wasn't null");
             Log.d(TAG, currentUser.getDisplayName());
@@ -290,14 +326,20 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             progress.dismiss();
 
             Intent i = new Intent(LoginActivity.this, MainActivity.class);
-            i.putExtra("username", currentUser.getDisplayName());
-            i.putExtra("id", currentUser.getUid());
-            i.putExtra("email", currentUser.getEmail());
+            byte[] encrptUsername = encrypter.encryptText(currentUser.getDisplayName());
+            byte[] encrptUid = encrypter.encryptText(currentUser.getUid());
+            byte[] encrptEmail = encrypter.encryptText(currentUser.getEmail());
+            i.putExtra("username", encrptUsername.toString());
+            i.putExtra("id", encrptUid.toString());
+            i.putExtra("email", encrptEmail.toString());
+//            i.putExtra("username", currentUser.getDisplayName());
+//            i.putExtra("id", currentUser.getUid());
+//            i.putExtra("email", currentUser.getEmail());
             startActivity(i);
         }
     }
 
-    private void updateUIVerify(final FirebaseUser currentUser) {
+    private void updateUIVerify(final FirebaseUser currentUser) throws Exception {
         if (currentUser != null) {
             Log.d(TAG, "this wasn't null");
             Log.d(TAG, currentUser.getDisplayName());
@@ -309,9 +351,16 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
 
             Intent i = new Intent(LoginActivity.this, SMSVerify.class);
-            i.putExtra("username", currentUser.getDisplayName());
-            i.putExtra("id", currentUser.getUid());
-            i.putExtra("email", currentUser.getEmail());
+
+            byte[] encrptUsername = encrypter.encryptText(currentUser.getDisplayName());
+            byte[] encrptUid = encrypter.encryptText(currentUser.getUid());
+            byte[] encrptEmail = encrypter.encryptText(currentUser.getEmail());
+            i.putExtra("username", encrptUsername);
+            i.putExtra("id", encrptUid);
+            i.putExtra("email", encrptEmail);
+//            i.putExtra("username", currentUser.getDisplayName());
+//            i.putExtra("id", currentUser.getUid());
+//            i.putExtra("email", currentUser.getEmail());
             startActivity(i);
         }
     }
