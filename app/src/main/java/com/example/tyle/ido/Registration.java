@@ -128,7 +128,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             cancel = true;
         }
 
-        //TODO: Create a password strength checking algorithm to test initial passwords
+
         boolean hasUppercase = !password.equals(password.toLowerCase());
         boolean hasLowercase = !password.equals(password.toUpperCase());
         // Check for matching passwords, if the user entered one.

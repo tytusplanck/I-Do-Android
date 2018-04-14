@@ -86,9 +86,9 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         encrypter = new Encryption();
 
-        SharedPreferences settings = getSharedPreferences("UserInfo", 0);
+        Bundle extras = getIntent().getExtras();
         try {
-            userid = encrypter.decryptText(settings.getString("userid", "").getBytes());
+            userid = encrypter.decryptText(extras.getString("userid", "").getBytes());
         } catch (UnrecoverableEntryException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         try {
-            username = encrypter.decryptText(settings.getString("userName", "").getBytes());
+            username = encrypter.decryptText(extras.getString("userName", "").getBytes());
         } catch (UnrecoverableEntryException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         try {
-            email = encrypter.decryptText(settings.getString("email", "").getBytes());
+            email = encrypter.decryptText(extras.getString("email", "").getBytes());
         } catch (UnrecoverableEntryException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
@@ -162,7 +162,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (CertificateException e) {
             e.printStackTrace();
         }
-
         Log.d(TAG, "Userid from oncreate: " + userid);
 
         User.userid = userid;
@@ -347,9 +346,21 @@ public class MainActivity extends AppCompatActivity {
             case R.id.sign_out:
                 signOut();
                 return true;
+            case R.id.change_password:
+                changePassword();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+
+    public void changePassword() {
+        Intent intent = new Intent(this, ChangePassword.class);
+        intent.putExtra("username", username);
+        intent.putExtra("id", userid);
+        intent.putExtra("email", email);
+        startActivity(intent);
     }
     /** Called when the user taps the Send button */
     public void jumpToVenue(View view) {
