@@ -64,17 +64,20 @@ public class MainActivity extends AppCompatActivity {
     private Context context;
     double totalCost;
 
+    private Encryption encrypter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
+        encrypter = new Encryption();
 
         Bundle extras = getIntent().getExtras();
-        userid = extras.getString("id", "");
-        username = extras.getString("username", "");
-        email = extras.getString("email", "");
+        userid = encrypter.decryptText(extras.getByteArray("id"));
+        username = encrypter.decryptText(extras.getByteArray("username"));
+        email = encrypter.decryptText(extras.getByteArray("email"));
 
         Log.d(TAG, "Userid from oncreate: " + userid);
 
@@ -142,9 +145,21 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
                 Intent intent = new Intent(MainActivity.this, ListActivity.class);
-                intent.putExtra("username", username);
-                intent.putExtra("id", userid);
-                intent.putExtra("email", email);
+                try {
+                    intent.putExtra("username", encrypter.encryptText(username));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                try {
+                    intent.putExtra("id", encrypter.encryptText(userid));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                try {
+                    intent.putExtra("email", encrypter.encryptText(email));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 startActivity(intent);
             }
         });
@@ -241,9 +256,21 @@ public class MainActivity extends AppCompatActivity {
     /** Called when the user taps the Send button */
     public void jumpToLists(View view) {
         Intent intent = new Intent(this, ListActivity.class);
-        intent.putExtra("username", username);
-        intent.putExtra("id", userid);
-        intent.putExtra("email", email);
+        try {
+            intent.putExtra("username", encrypter.encryptText(username));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            intent.putExtra("id", encrypter.encryptText(userid));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            intent.putExtra("email", encrypter.encryptText(email));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         startActivity(intent);
     }
 
@@ -271,17 +298,41 @@ public class MainActivity extends AppCompatActivity {
 
     public void changePassword() {
         Intent intent = new Intent(this, ChangePassword.class);
-        intent.putExtra("username", username);
-        intent.putExtra("id", userid);
-        intent.putExtra("email", email);
+        try {
+            intent.putExtra("username", encrypter.encryptText(username));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            intent.putExtra("id", encrypter.encryptText(userid));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            intent.putExtra("email", encrypter.encryptText(email));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         startActivity(intent);
     }
     /** Called when the user taps the Send button */
     public void jumpToVenue(View view) {
         Intent intent = new Intent(this, VenueMapSearch.class);
-        intent.putExtra("username", username);
-        intent.putExtra("id", userid);
-        intent.putExtra("email", email);
+        try {
+            intent.putExtra("username", encrypter.encryptText(username));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            intent.putExtra("id", encrypter.encryptText(userid));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            intent.putExtra("email", encrypter.encryptText(email));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         startActivity(intent);
     }
 

@@ -29,19 +29,21 @@ public class ChangePassword extends AppCompatActivity implements View.OnClickLis
     private FirebaseUser current;
 
     private String username, email, userid;
+    private Encryption encrypter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
         mAuth = FirebaseAuth.getInstance();
+        encrypter = new Encryption();
 
         current = mAuth.getCurrentUser();
 
         Bundle extras = getIntent().getExtras();
-        userid = extras.getString("id", "");
-        username = extras.getString("username", "");
-        email = extras.getString("email", "");
+        userid = encrypter.decryptText(extras.getByteArray("id"));
+        username = encrypter.decryptText(extras.getByteArray("username"));
+        email = encrypter.decryptText(extras.getByteArray("email"));
 
         oldPassword = findViewById(R.id.old_password);
         newPassword = findViewById(R.id.new_password);

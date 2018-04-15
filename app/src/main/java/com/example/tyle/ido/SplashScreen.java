@@ -20,11 +20,15 @@ public class SplashScreen extends AppCompatActivity {
     private static final int SPLASH_DISPLAY_LENGTH = 1500;
     private FirebaseAuth auth;
     private String name, id, email;
+    private Encryption encrypter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "In onCreate");
         super.onCreate(savedInstanceState);
+
+        encrypter = new Encryption();
+
         auth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_splash_screen);
         if (auth.getCurrentUser() == null) {
@@ -50,9 +54,21 @@ public class SplashScreen extends AppCompatActivity {
                     Log.d(TAG, id);
 
                     Intent i = new Intent(SplashScreen.this, MainActivity.class);
-                    i.putExtra("username", currentUser.getDisplayName());
-                    i.putExtra("id", currentUser.getUid());
-                    i.putExtra("email", currentUser.getEmail());
+                    try {
+                        i.putExtra("username", encrypter.encryptText(currentUser.getDisplayName()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        i.putExtra("id", encrypter.encryptText(currentUser.getUid()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        i.putExtra("email", encrypter.encryptText(currentUser.getEmail()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     startActivity(i);
                     finish();
                 }
