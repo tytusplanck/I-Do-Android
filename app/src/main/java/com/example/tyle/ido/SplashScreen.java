@@ -2,7 +2,6 @@ package com.example.tyle.ido;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -49,13 +48,12 @@ public class SplashScreen extends AppCompatActivity {
                     Log.d(TAG, "Current User: " + name);
                     Log.d(TAG, email);
                     Log.d(TAG, id);
-                    SharedPreferences settings = getSharedPreferences("UserInfo", 0);
-                    SharedPreferences.Editor editor = settings.edit();
-                    editor.putString("username", name);
-                    editor.putString("email", email);
-                    editor.putString("userid", id);
-                    editor.commit();
-                    startActivity(new Intent(SplashScreen.this, MainActivity.class));
+
+                    Intent i = new Intent(SplashScreen.this, MainActivity.class);
+                    i.putExtra("username", currentUser.getDisplayName());
+                    i.putExtra("id", currentUser.getUid());
+                    i.putExtra("email", currentUser.getEmail());
+                    startActivity(i);
                     finish();
                 }
             }, SPLASH_DISPLAY_LENGTH);

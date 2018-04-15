@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
@@ -141,12 +140,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         Log.d(TAG, "Current account: " + mAuth);
         if (mAuth.getCurrentUser() != null) {
             FirebaseUser currentUser = mAuth.getCurrentUser();
-            SharedPreferences settings = getSharedPreferences("UserInfo", 0);
-            SharedPreferences.Editor editor = settings.edit();
-            editor.putString("name", currentUser.getDisplayName());
-            editor.putString("email", currentUser.getEmail());
-            editor.putString("userid", currentUser.getUid());
-            editor.commit();
             updateUI(currentUser);
         }
     }

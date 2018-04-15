@@ -6,7 +6,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -116,9 +115,6 @@ public class ListActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_list);
-
-        SharedPreferences settings = getSharedPreferences("UserInfo", 0);
-        String userid = settings.getString("userid", "").toString();
 
         final DatabaseReference listActivity = FirebaseDatabase.getInstance().getReference("users/" + userid + "/lists");
 
