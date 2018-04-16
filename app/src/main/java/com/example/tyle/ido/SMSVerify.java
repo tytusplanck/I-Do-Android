@@ -283,7 +283,9 @@ public class SMSVerify extends AppCompatActivity implements View.OnClickListener
 
     private void verifyPhoneNumberWithCode(String verificationId, String code) {
         FirebaseUser current = mAuth.getCurrentUser();
-        if (verificationId.equals(code)) {
+        PhoneAuthCredential verify = PhoneAuthProvider.getCredential(verificationId, code);
+        String smsCode = verify.getSmsCode();
+        if (verify.equals(code)) {
             // Sign in success, update UI with the signed-in user's information
             Log.d(TAG, "signInWithCredential:success");
             updateUI(STATE_VERIFY_SUCCESS, current);
