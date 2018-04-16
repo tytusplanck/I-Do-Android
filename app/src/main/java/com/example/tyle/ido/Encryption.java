@@ -2,9 +2,13 @@ package com.example.tyle.ido;
 
 public class Encryption {
 
-    private final byte[] S = new byte[256];
-    private final byte[] T = new byte[256];
     private final int keylen;
+
+    //The byte array representing the key stream
+    private final byte[] S = new byte[256];
+
+    //The Pseudo-random
+    private final byte[] T = new byte[256];
 
     public Encryption(final byte[] key) {
 
@@ -23,7 +27,7 @@ public class Encryption {
             }
     }
 
-    public byte[] encrypt(final byte[] textToEncrypt) {
+    public byte[] encryptText(final byte[] textToEncrypt) {
         final byte[] encryptedText = new byte[textToEncrypt.length];
         int i = 0, j = 0, k, t;
         byte tmp;
@@ -40,7 +44,7 @@ public class Encryption {
         return encryptedText;
     }
 
-    public byte[] decrypt(final byte[] ciphertext) {
-        return encrypt(ciphertext);
+    public String decryptText(final byte[] encryptedText) {
+        return encryptText(encryptedText).toString();
     }
 }

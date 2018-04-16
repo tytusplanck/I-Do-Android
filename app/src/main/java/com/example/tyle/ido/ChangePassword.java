@@ -24,6 +24,7 @@ public class ChangePassword extends AppCompatActivity implements View.OnClickLis
 
     private EditText oldPassword, newPassword, confirmNewPassword;
     private Button update, cancel;
+    private final String KEYFORENCRYPTION = "ThisIsOurKey";
 
     private FirebaseAuth mAuth;
     private FirebaseUser current;
@@ -36,7 +37,7 @@ public class ChangePassword extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
         mAuth = FirebaseAuth.getInstance();
-        encrypter = new Encryption();
+        encrypter = new Encryption(KEYFORENCRYPTION.getBytes());
 
         current = mAuth.getCurrentUser();
 
