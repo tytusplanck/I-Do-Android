@@ -289,7 +289,7 @@ public class SMSVerify extends AppCompatActivity implements View.OnClickListener
             updateUI(STATE_VERIFY_SUCCESS, current);
         } else {
             // Sign in failed, display a message and update the UI
-            Log.w(TAG, "signInWithCredential:failure");
+            Log.w(TAG, "VerifyWithCredential:failure");
         }
     }
 
