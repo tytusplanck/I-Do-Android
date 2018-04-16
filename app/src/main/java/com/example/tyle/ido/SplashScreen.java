@@ -24,12 +24,11 @@ public class SplashScreen extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "In onCreate");
         super.onCreate(savedInstanceState);
         auth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_splash_screen);
         if (auth.getCurrentUser() == null) {
-            //Start the HomeScreen activity if the user is not logged in
+            //Start the Login/Homescreen activity if the user is not logged in
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -49,13 +48,11 @@ public class SplashScreen extends AppCompatActivity {
                     Log.d(TAG, "Current User: " + name);
                     Log.d(TAG, email);
                     Log.d(TAG, id);
-                    SharedPreferences settings = getSharedPreferences("UserInfo", 0);
-                    SharedPreferences.Editor editor = settings.edit();
-                    editor.putString("username", name);
-                    editor.putString("email", email);
-                    editor.putString("userid", id);
-                    editor.commit();
-                    startActivity(new Intent(SplashScreen.this, MainActivity.class));
+                    Intent main = new Intent(SplashScreen.this, MainActivity.class);
+                    main.putExtra("username", name);
+                    main.putExtra("email", email);
+                    main.putExtra("userid", id);
+                    startActivity(main);
                     finish();
                 }
             }, SPLASH_DISPLAY_LENGTH);

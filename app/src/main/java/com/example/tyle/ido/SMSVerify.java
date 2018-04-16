@@ -298,23 +298,22 @@ public class SMSVerify extends AppCompatActivity implements View.OnClickListener
     }
 
     private void signInWithPhoneAuthCredential(final PhoneAuthCredential credential) {
+        final FirebaseUser current = mAuth.getCurrentUser();
         mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = task.getResult().getUser();
-                            updateUI(STATE_VERIFY_SUCCESS, user);
+                            updateUI(STATE_VERIFY_SUCCESS, current);
 
                         } else {
                             // Sign in failed, display a message and update the UI
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 // The verification code entered was invalid
-                                // [START_EXCLUDE silent]
                                 mVerificationField.setError("Invalid code.");
-                                // [END_EXCLUDE]
+
                             }
                         }
                     }});

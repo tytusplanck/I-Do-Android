@@ -216,8 +216,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                                 UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
                                 task.getResult().getUser().updateProfile(profileUpdates);
                                 Toast.makeText(Registration.this, "Successfully Registered!", Toast.LENGTH_SHORT).show();
-
-
                             }
                             progressDialog.dismiss();
                         }
