@@ -27,11 +27,12 @@ public class Encryption {
             }
     }
 
-    public byte[] encryptText(final byte[] textToEncrypt) {
-        final byte[] encryptedText = new byte[textToEncrypt.length];
+    public byte[] encryptText(String textToEncrypt) {
+        byte[] textInBytes = textToEncrypt.getBytes();
+        final byte[] encryptedText = new byte[textInBytes.length];
         int i = 0, j = 0, k, t;
         byte tmp;
-        for (int counter = 0; counter < textToEncrypt.length; counter++) {
+        for (int counter = 0; counter < textInBytes.length; counter++) {
             i = (i + 1) & 0xFF;
             j = (j + S[i]) & 0xFF;
             tmp = S[j];
@@ -39,12 +40,12 @@ public class Encryption {
             S[i] = tmp;
             t = (S[i] + S[j]) & 0xFF;
             k = S[t];
-            encryptedText[counter] = (byte) (textToEncrypt[counter] ^ k);
+            encryptedText[counter] = (byte) (textInBytes[counter] ^ k);
         }
         return encryptedText;
     }
 
     public String decryptText(final byte[] encryptedText) {
-        return encryptText(encryptedText).toString();
+        return encryptText(encryptedText.toString()).toString();
     }
 }
