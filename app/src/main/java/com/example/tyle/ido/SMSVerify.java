@@ -282,8 +282,15 @@ public class SMSVerify extends AppCompatActivity implements View.OnClickListener
     }
 
     private void verifyPhoneNumberWithCode(String verificationId, String code) {
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
-        signInWithPhoneAuthCredential(credential);
+        FirebaseUser current = mAuth.getCurrentUser();
+        if (verificationId.equals(code)) {
+            // Sign in success, update UI with the signed-in user's information
+            Log.d(TAG, "signInWithCredential:success");
+            updateUI(STATE_VERIFY_SUCCESS, current);
+        } else {
+            // Sign in failed, display a message and update the UI
+            Log.w(TAG, "signInWithCredential:failure");
+        }
     }
 
     private void resendVerificationCode(String phoneNumber,
@@ -297,7 +304,7 @@ public class SMSVerify extends AppCompatActivity implements View.OnClickListener
                 token);             // ForceResendingToken from callbacks
     }
 
-    private void signInWithPhoneAuthCredential(final PhoneAuthCredential credential) {
+   private void signInWithPhoneAuthCredential(final PhoneAuthCredential credential) {
         final FirebaseUser current = mAuth.getCurrentUser();
         mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
