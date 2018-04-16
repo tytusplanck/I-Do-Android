@@ -25,7 +25,19 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.UnrecoverableEntryException;
+import java.security.cert.CertificateException;
 import java.util.concurrent.TimeUnit;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 public class SMSVerify extends AppCompatActivity implements View.OnClickListener {
 
@@ -90,7 +102,6 @@ public class SMSVerify extends AppCompatActivity implements View.OnClickListener
         Log.d(TAG, "User id up in this bitch: " + user_id);
         Log.d(TAG, "User name up in this bitch: " + user_name);
         Log.d(TAG, "User email up in this bitch: " + user_email);
-
 
 
         // Assign views on the page
@@ -204,8 +215,17 @@ public class SMSVerify extends AppCompatActivity implements View.OnClickListener
     }
 
     private void verifyPhoneNumberWithCode(String verificationId, String code) {
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
-        signInWithPhoneAuthCredential(credential);
+        FirebaseUser current = mAuth.getCurrentUser();
+        PhoneAuthCredential verify = PhoneAuthProvider.getCredential(verificationId, code);
+        String smsCode = verify.getSmsCode();
+        if (smsCode.equals(code)) {
+            // Sign in success, update UI with the signed-in user's information
+            Log.d(TAG, "signInWithCredential:success");
+            updateUI(STATE_VERIFY_SUCCESS, current);
+        } else {
+            // Sign in failed, display a message and update the UI
+            Log.w(TAG, "VerifyWithCredential:failure");
+        }
     }
 
     private void resendVerificationCode(String phoneNumber,
@@ -219,13 +239,15 @@ public class SMSVerify extends AppCompatActivity implements View.OnClickListener
                 token);             // ForceResendingToken from callbacks
     }
 
-    private void signInWithPhoneAuthCredential(final PhoneAuthCredential credential) {
+   private void signInWithPhoneAuthCredential(final PhoneAuthCredential credential) {
+        final FirebaseUser current = mAuth.getCurrentUser();
         mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
+
                             mAuth.signOut();
                             signInWithUserCreds();
                         } else {
@@ -233,9 +255,8 @@ public class SMSVerify extends AppCompatActivity implements View.OnClickListener
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 // The verification code entered was invalid
-                                // [START_EXCLUDE silent]
                                 mVerificationField.setError("Invalid code.");
-                                // [END_EXCLUDE]
+
                             }
                         }
                     }});

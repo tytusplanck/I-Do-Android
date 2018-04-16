@@ -39,6 +39,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     // UI references.
     public GoogleApiClient mGoogleApiClient;
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseAuth auth;
 
     private EditText emailField, passwordField;
     private Button loginButton;
@@ -65,6 +66,10 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private TextView forgotPassword, register;
     private CheckBox showHidePassword;
     private Encryption encrypter;
+
+    private FirebaseAuth.AuthStateListener authchange;
+    private Boolean mAllowNavigation = true;
+    private String password;
 
     ArrayList<ToDoList> currentUserList = new ArrayList<>();
     private final String KEYFORENCRYPTION = "ThisIsOurKey";
@@ -74,7 +79,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         setUpViewElements();
+
         encrypter = new Encryption(KEYFORENCRYPTION.getBytes());
+
+        auth = FirebaseAuth.getInstance();
+
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -87,6 +96,44 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 .build();
         Log.d(TAG, "Building new Session in login activity");
         setOnClickListeners();
+
+        authchange = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:user signed in");
+                    if (mAllowNavigation) {
+                        mAllowNavigation = false;
+                        Intent i = new Intent(getApplicationContext(), SMSVerify.class);
+                        try {
+                            i.putExtra("username", encrypter.encryptText(user.getDisplayName()));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            i.putExtra("id", encrypter.encryptText(user.getUid()));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            i.putExtra("email", encrypter.encryptText(user.getEmail()));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            i.putExtra("password", encrypter.encryptText(password));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        startActivity(i);
+                    }
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+            }};
     }
 
     /**
@@ -137,15 +184,36 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
 
+    // Add onStart and onStop methods to start and stop the authlistener
     @Override
     public void onStart() {
         super.onStart();
-        Log.d(TAG, "Current account: " + mAuth);
-        if (mAuth.getCurrentUser() != null) {
-            FirebaseUser currentUser = mAuth.getCurrentUser();
-            updateUI(currentUser);
+        Log.d(TAG, "SignUp Activity has started.");
+        auth.addAuthStateListener(authchange);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (authchange != null) {
+            auth.removeAuthStateListener(authchange);
         }
     }
+
+    /**
+     * The next four methods pertain to logging in with an existing Google account
+     */
+    public void googleSignIn() {
+        mGoogleApiClient.clearDefaultAccountAndReconnect();
+        if (hasNetworkConnection()) {
+            Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+            startActivityForResult(signInIntent, RC_SIGN_IN);
+            Log.d(TAG, "Here is the connection from Login: " + mGoogleApiClient.isConnected());
+        } else {
+            showDialog();
+        }
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -162,7 +230,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 firebaseAuthWithGoogle(account);
             } else {
                 Toast.makeText(LoginActivity.this, "Login Failed!", Toast.LENGTH_SHORT).show();
-                updateUI(null);
             }
         }
     }
@@ -171,36 +238,32 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        mAuth.signInWithCredential(credential)
+        auth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            Log.d(TAG, "Userid:" + auth.getCurrentUser().getUid());
                             Toast.makeText(LoginActivity.this, "Successfully Signed In!", Toast.LENGTH_SHORT).show();
                             progress.dismiss();
-                            updateUIVerify(user);
                         } else {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             progress.dismiss();
                             Toast.makeText(LoginActivity.this, "Login Failed!", Toast.LENGTH_SHORT).show();
-                            updateUI(null);
                         }
                     }
                 });
     }
 
-    public void googleSignIn() {
-        mGoogleApiClient.clearDefaultAccountAndReconnect();
-        if (hasNetworkConnection()) {
-            Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-            startActivityForResult(signInIntent, RC_SIGN_IN);
-            Log.d(TAG, "Here is the connection from Login: " + mGoogleApiClient.isConnected());
-        } else {
-            showDialog();
-        }
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        // An unresolvable error has occurred and Google APIs (including Sign-In) will not
+        // be available.
+        Log.d(TAG, "onConnectionFailed:" + connectionResult);
     }
+
+
 
     /**
      * Sign the user into their account
@@ -210,7 +273,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         // Initialize the email and password variables from the fields entered by the user
         String email = emailField.getText().toString();
-        String password = passwordField.getText().toString();
+        password = passwordField.getText().toString();
 
         //Check if the fields are empty
         if (TextUtils.isEmpty(email)) {
@@ -240,119 +303,22 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             progress.setMessage("Logging in...");
             progress.show();
 
-            mAuth.signInWithEmailAndPassword(email, password)
+            auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             Log.d(TAG, "signIn:onComplete:" + task.isSuccessful());
                             progress.dismiss();
-                            if (task.isSuccessful()) {
-                                onAuthSuccess(task.getResult().getUser());
-                            } else {
+                            if (!task.isSuccessful()) {
                                 Toast.makeText(LoginActivity.this, "Sign In Failed",
                                         Toast.LENGTH_SHORT).show();
+                                Log.d(TAG, "signIn:failed:" + task.getException());
                             }
                         }
                     });
         } else {
             showDialog();
         }
-    }
-
-
-    /**
-     * If the login is successful
-     *
-     * @param user - the user who's account is currently being logged into
-     */
-    private void onAuthSuccess(FirebaseUser user) {
-        //Go to home screen for logged in users
-        Intent i = new Intent(LoginActivity.this, SMSVerify.class);
-        try {
-            i.putExtra("username", encrypter.encryptText(user.getDisplayName()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            i.putExtra("id", encrypter.encryptText(user.getUid()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            i.putExtra("email", encrypter.encryptText(user.getEmail()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        startActivity(i);
-    }
-
-
-    private void updateUI(final FirebaseUser currentUser) {
-        if (currentUser != null) {
-            Log.d(TAG, "this wasn't null");
-            Log.d(TAG, currentUser.getDisplayName());
-            Log.d(TAG, currentUser.getEmail());
-            Log.d(TAG, currentUser.getUid());
-
-            //dismiss
-            progress.dismiss();
-
-            Intent i = new Intent(LoginActivity.this, MainActivity.class);
-            try {
-                i.putExtra("username", encrypter.encryptText(currentUser.getDisplayName()));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            try {
-                i.putExtra("id", encrypter.encryptText(currentUser.getUid()));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            try {
-                i.putExtra("email", encrypter.encryptText(currentUser.getEmail()));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            startActivity(i);
-        }
-    }
-
-    private void updateUIVerify(final FirebaseUser currentUser) {
-        if (currentUser != null) {
-            Log.d(TAG, "this wasn't null");
-            Log.d(TAG, currentUser.getDisplayName());
-            Log.d(TAG, currentUser.getEmail());
-            Log.d(TAG, currentUser.getUid());
-
-            //dismiss
-            progress.dismiss();
-
-
-            Intent i = new Intent(LoginActivity.this, SMSVerify.class);
-            try {
-                i.putExtra("username", encrypter.encryptText(currentUser.getDisplayName()));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            try {
-                i.putExtra("id", encrypter.encryptText(currentUser.getUid()));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            try {
-                i.putExtra("email", encrypter.encryptText(currentUser.getEmail()));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            startActivity(i);
-        }
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-        // An unresolvable error has occurred and Google APIs (including Sign-In) will not
-        // be available.
-        Log.d(TAG, "onConnectionFailed:" + connectionResult);
     }
 
     @Override

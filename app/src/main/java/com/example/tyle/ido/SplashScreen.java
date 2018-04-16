@@ -25,7 +25,6 @@ public class SplashScreen extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "In onCreate");
         super.onCreate(savedInstanceState);
 
         encrypter = new Encryption(KEYFORENCRYPTION.getBytes());
@@ -33,7 +32,7 @@ public class SplashScreen extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_splash_screen);
         if (auth.getCurrentUser() == null) {
-            //Start the HomeScreen activity if the user is not logged in
+            //Start the Login/Homescreen activity if the user is not logged in
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {

@@ -160,6 +160,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         String confirm_password =confirmPassword.getText().toString();
         name = fullName.getText().toString();
 
+
         boolean cancel = false;
         View focusView = null;
 
@@ -252,8 +253,11 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                             if (!task.isSuccessful()) {
                                 Toast.makeText(Registration.this, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
+                                Log.d(TAG, "onComplete: Failed=" + task.getException().getMessage());
 
                             } else {
+                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
+                                task.getResult().getUser().updateProfile(profileUpdates);
                                 Toast.makeText(Registration.this, "Successfully Registered!", Toast.LENGTH_SHORT).show();
                             }
                             progressDialog.dismiss();
