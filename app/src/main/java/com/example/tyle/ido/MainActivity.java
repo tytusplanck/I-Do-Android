@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
     double totalCost;
 
     private Encryption encrypter;
+    private final String KEYFORENCRYPTION = "ThisIsOurKey";
 
 
     @Override
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
-        encrypter = new Encryption();
+        encrypter = new Encryption(KEYFORENCRYPTION.getBytes());
 
         Bundle extras = getIntent().getExtras();
         userid = encrypter.decryptText(extras.getByteArray("id"));

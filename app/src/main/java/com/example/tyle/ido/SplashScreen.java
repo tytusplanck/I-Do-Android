@@ -21,13 +21,14 @@ public class SplashScreen extends AppCompatActivity {
     private FirebaseAuth auth;
     private String name, id, email;
     private Encryption encrypter;
+    private final String KEYFORENCRYPTION = "ThisIsOurKey";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "In onCreate");
         super.onCreate(savedInstanceState);
 
-        encrypter = new Encryption();
+        encrypter = new Encryption(KEYFORENCRYPTION.getBytes());
 
         auth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_splash_screen);

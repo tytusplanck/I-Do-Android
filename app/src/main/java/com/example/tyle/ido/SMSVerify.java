@@ -69,13 +69,14 @@ public class SMSVerify extends AppCompatActivity implements View.OnClickListener
     private Encryption encrypter;
 
     //Info passed from login or registration
-    String user_id, user_name, user_email;
+    String user_id, user_name, user_email, password;
+    private final String KEYFORENCRYPTION = "ThisIsOurKey";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sms_verify);
-        encrypter = new Encryption();
+        encrypter = new Encryption(KEYFORENCRYPTION.getBytes());
 
         // Restore instance state
         if (savedInstanceState != null) { onRestoreInstanceState(savedInstanceState); }
@@ -84,6 +85,12 @@ public class SMSVerify extends AppCompatActivity implements View.OnClickListener
         user_id = encrypter.decryptText(extras.getByteArray("id"));
         user_name = encrypter.decryptText(extras.getByteArray("username"));
         user_email = encrypter.decryptText(extras.getByteArray("email"));
+        password = encrypter.decryptText(extras.getByteArray("password"));
+
+        Log.d(TAG, "User id up in this bitch: " + user_id);
+        Log.d(TAG, "User name up in this bitch: " + user_name);
+        Log.d(TAG, "User email up in this bitch: " + user_email);
+
 
 
         // Assign views on the page
@@ -219,9 +226,8 @@ public class SMSVerify extends AppCompatActivity implements View.OnClickListener
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = task.getResult().getUser();
-                            updateUI(STATE_VERIFY_SUCCESS, user);
-
+                            mAuth.signOut();
+                            signInWithUserCreds();
                         } else {
                             // Sign in failed, display a message and update the UI
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -233,6 +239,17 @@ public class SMSVerify extends AppCompatActivity implements View.OnClickListener
                             }
                         }
                     }});
+    }
+
+    public void signInWithUserCreds(){
+        mAuth.signInWithEmailAndPassword(user_email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "signIn:onComplete:" + task.isSuccessful());
+                        updateUI(STATE_VERIFY_SUCCESS, mAuth.getCurrentUser());
+                    }
+                });
     }
 
     private void updateUI(int uiState) {

@@ -90,11 +90,12 @@ public class ListActivity extends AppCompatActivity {
     Spinner listSpinner;
     private String dbVal = "";
     private Encryption encrypter;
+    private final String KEYFORENCRYPTION = "ThisIsOurKey";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        encrypter = new Encryption();
+        encrypter = new Encryption(KEYFORENCRYPTION.getBytes());
 
         setTitle("My To-Do Lists");
 

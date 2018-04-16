@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -41,13 +42,16 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private Boolean mAllowNavigation = true;
     private FirebaseAuth auth;
     private Encryption encrypter;
+    private final String KEYFORENCRYPTION = "ThisIsOurKey";
+    private String name;
+    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        encrypter = new Encryption();
+        encrypter = new Encryption(KEYFORENCRYPTION.getBytes());
         // Set up the current page
         auth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
@@ -63,35 +67,60 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         authchange = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+                final FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:user signed in");
-                    if (mAllowNavigation) {
-                        mAllowNavigation = false;
-                        Intent i = new Intent(getApplicationContext(), SMSVerify.class);
-                        try {
-                            i.putExtra("username", encrypter.encryptText(user.getDisplayName()));
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            i.putExtra("id", encrypter.encryptText(user.getUid()));
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            i.putExtra("email", encrypter.encryptText(user.getEmail()));
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        startActivity(i);
-                    }
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                    Log.d(TAG, "Name: " + name);
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(name)
+                            .build();
+                    user.updateProfile(profileUpdates)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Log.d(TAG, "User profile updated.");
+                                        Log.d(TAG, "onAuthStateChanged:user signed in");
+                                        Log.d(TAG, "Username: " + user.getDisplayName());
+                                        Log.d(TAG, "UserID: " + user.getUid());
+                                        Log.d(TAG, "UserEmail: " + user.getEmail());
+                                        if (mAllowNavigation) {
+                                            mAllowNavigation = false;
+                                            Intent i = new Intent(getApplicationContext(), SMSVerify.class);
+                                            try {
+                                                i.putExtra("username", encrypter.encryptText(user.getDisplayName()));
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                            try {
+                                                i.putExtra("id", encrypter.encryptText(user.getUid()));
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                            try {
+                                                i.putExtra("email", encrypter.encryptText(user.getEmail()));
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                            try {
+                                                i.putExtra("password", encrypter.encryptText(password));
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                            startActivity(i);
+                                        }
+                                    } else {
+                                        // User is signed out
+                                        Log.d(TAG, "onAuthStateChanged:signed_out");
+                                    }
+                                }
+
+                            });
                 }
-            }};
+            }
+
+
+            };
 
         // Set onClickListeners
         register.setOnClickListener(this);
@@ -127,9 +156,9 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
         // Store values at the time of the login attempt.
         String email = emailField.getText().toString();
-        String password = passwordField.getText().toString();
+        password = passwordField.getText().toString();
         String confirm_password =confirmPassword.getText().toString();
-        String name = fullName.getText().toString();
+        name = fullName.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -226,8 +255,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
                             } else {
                                 Toast.makeText(Registration.this, "Successfully Registered!", Toast.LENGTH_SHORT).show();
-
-
                             }
                             progressDialog.dismiss();
                         }
