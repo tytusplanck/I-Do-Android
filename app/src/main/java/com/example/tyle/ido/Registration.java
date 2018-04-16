@@ -40,12 +40,14 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private FirebaseAuth.AuthStateListener authchange;
     private Boolean mAllowNavigation = true;
     private FirebaseAuth auth;
+    private Encryption encrypter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
+        encrypter = new Encryption();
         // Set up the current page
         auth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
@@ -68,9 +70,21 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                     if (mAllowNavigation) {
                         mAllowNavigation = false;
                         Intent i = new Intent(getApplicationContext(), SMSVerify.class);
-                        i.putExtra("username", user.getDisplayName());
-                        i.putExtra("id", user.getUid());
-                        i.putExtra("email", user.getEmail());
+                        try {
+                            i.putExtra("username", encrypter.encryptText(user.getDisplayName()));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            i.putExtra("id", encrypter.encryptText(user.getUid()));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            i.putExtra("email", encrypter.encryptText(user.getEmail()));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                         startActivity(i);
                     }
                 } else {

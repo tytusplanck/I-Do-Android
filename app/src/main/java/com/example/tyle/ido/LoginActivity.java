@@ -64,6 +64,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private SignInButton signInButton;
     private TextView forgotPassword, register;
     private CheckBox showHidePassword;
+    private Encryption encrypter;
 
     ArrayList<ToDoList> currentUserList = new ArrayList<>();
 
@@ -72,6 +73,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         setUpViewElements();
+        encrypter = new Encryption();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -155,7 +157,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 Log.d(TAG, "Hey all you people: " + result.isSuccess());
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
-                Log.d(TAG, "Hey fuck you: " + account.getDisplayName());
+                Log.d(TAG, "Hey display name: " + account.getDisplayName());
                 firebaseAuthWithGoogle(account);
             } else {
                 Toast.makeText(LoginActivity.this, "Login Failed!", Toast.LENGTH_SHORT).show();
@@ -265,9 +267,21 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private void onAuthSuccess(FirebaseUser user) {
         //Go to home screen for logged in users
         Intent i = new Intent(LoginActivity.this, SMSVerify.class);
-        i.putExtra("username", user.getDisplayName());
-        i.putExtra("id", user.getUid());
-        i.putExtra("email", user.getEmail());
+        try {
+            i.putExtra("username", encrypter.encryptText(user.getDisplayName()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            i.putExtra("id", encrypter.encryptText(user.getUid()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            i.putExtra("email", encrypter.encryptText(user.getEmail()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         startActivity(i);
     }
 
@@ -283,9 +297,21 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             progress.dismiss();
 
             Intent i = new Intent(LoginActivity.this, MainActivity.class);
-            i.putExtra("username", currentUser.getDisplayName());
-            i.putExtra("id", currentUser.getUid());
-            i.putExtra("email", currentUser.getEmail());
+            try {
+                i.putExtra("username", encrypter.encryptText(currentUser.getDisplayName()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                i.putExtra("id", encrypter.encryptText(currentUser.getUid()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                i.putExtra("email", encrypter.encryptText(currentUser.getEmail()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             startActivity(i);
         }
     }
@@ -302,9 +328,21 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
 
             Intent i = new Intent(LoginActivity.this, SMSVerify.class);
-            i.putExtra("username", currentUser.getDisplayName());
-            i.putExtra("id", currentUser.getUid());
-            i.putExtra("email", currentUser.getEmail());
+            try {
+                i.putExtra("username", encrypter.encryptText(currentUser.getDisplayName()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                i.putExtra("id", encrypter.encryptText(currentUser.getUid()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                i.putExtra("email", encrypter.encryptText(currentUser.getEmail()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             startActivity(i);
         }
     }

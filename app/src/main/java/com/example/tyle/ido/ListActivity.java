@@ -89,10 +89,12 @@ public class ListActivity extends AppCompatActivity {
     ArrayAdapter<String> listSpinnerAdapter;
     Spinner listSpinner;
     private String dbVal = "";
+    private Encryption encrypter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        encrypter = new Encryption();
 
         setTitle("My To-Do Lists");
 
@@ -101,9 +103,11 @@ public class ListActivity extends AppCompatActivity {
         currentList = new ArrayList<>();
         currentListFirebaseId = new ArrayList<>();
 
-        username = getIntent().getStringExtra("username");
-        email = getIntent().getStringExtra("email");
-        userid = getIntent().getStringExtra("id");
+        Bundle extras = getIntent().getExtras();
+        userid = encrypter.decryptText(extras.getByteArray("id"));
+        username = encrypter.decryptText(extras.getByteArray("username"));
+        email = encrypter.decryptText(extras.getByteArray("email"));
+
         User.name = username;
         User.email = email;
         User.userid = userid;

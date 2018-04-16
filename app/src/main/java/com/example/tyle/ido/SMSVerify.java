@@ -66,6 +66,7 @@ public class SMSVerify extends AppCompatActivity implements View.OnClickListener
     private Button mVerifyButton;
     private Button mResendButton;
     private Button mCancelButton;
+    private Encryption encrypter;
 
     //Info passed from login or registration
     String user_id, user_name, user_email;
@@ -74,14 +75,15 @@ public class SMSVerify extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sms_verify);
+        encrypter = new Encryption();
 
         // Restore instance state
         if (savedInstanceState != null) { onRestoreInstanceState(savedInstanceState); }
 
         Bundle extras = getIntent().getExtras();
-        user_id = extras.getString("id", "");
-        user_name = extras.getString("username", "");
-        user_email = extras.getString("email", "");
+        user_id = encrypter.decryptText(extras.getByteArray("id"));
+        user_name = encrypter.decryptText(extras.getByteArray("username"));
+        user_email = encrypter.decryptText(extras.getByteArray("email"));
 
 
         // Assign views on the page
@@ -268,9 +270,21 @@ public class SMSVerify extends AppCompatActivity implements View.OnClickListener
                 break;
             case STATE_VERIFY_SUCCESS:
                 Intent i = new Intent(SMSVerify.this, MainActivity.class);
-                i.putExtra("username", user_name);
-                i.putExtra("id", user_id);
-                i.putExtra("email", user_email);
+                try {
+                    i.putExtra("username", encrypter.encryptText(user_name));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                try {
+                    i.putExtra("id", encrypter.encryptText(user_id));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                try {
+                    i.putExtra("email", encrypter.encryptText(user_email));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 startActivity(i);
                 break;
         }
