@@ -72,15 +72,14 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private String password;
 
     ArrayList<ToDoList> currentUserList = new ArrayList<>();
-    private final String KEYFORENCRYPTION = "ThisIsOurKey";
-
+    String KEYFORENCRYPTION = "This is the Key I guess";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         setUpViewElements();
 
-        encrypter = new Encryption(KEYFORENCRYPTION.getBytes());
+        encrypter = new Encryption(KEYFORENCRYPTION);
 
         auth = FirebaseAuth.getInstance();
 
@@ -108,22 +107,22 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         mAllowNavigation = false;
                         Intent i = new Intent(getApplicationContext(), SMSVerify.class);
                         try {
-                            i.putExtra("username", encrypter.encryptText(user.getDisplayName()));
+                            i.putExtra("username", encrypter.encryptText(user.getDisplayName(), KEYFORENCRYPTION));
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                         try {
-                            i.putExtra("id", encrypter.encryptText(user.getUid()));
+                            i.putExtra("id", encrypter.encryptText(user.getUid(), KEYFORENCRYPTION));
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                         try {
-                            i.putExtra("email", encrypter.encryptText(user.getEmail()));
+                            i.putExtra("email", encrypter.encryptText(user.getEmail(), KEYFORENCRYPTION));
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                         try {
-                            i.putExtra("password", encrypter.encryptText(password));
+                            i.putExtra("password", encrypter.encryptText(password, KEYFORENCRYPTION));
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

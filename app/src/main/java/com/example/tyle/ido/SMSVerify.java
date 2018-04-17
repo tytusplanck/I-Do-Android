@@ -82,22 +82,21 @@ public class SMSVerify extends AppCompatActivity implements View.OnClickListener
 
     //Info passed from login or registration
     String user_id, user_name, user_email, password;
-    private final String KEYFORENCRYPTION = "ThisIsOurKey";
-
+    String KEYFORENCRYPTION = "This is the Key I guess";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sms_verify);
-        encrypter = new Encryption(KEYFORENCRYPTION.getBytes());
+        encrypter = new Encryption(KEYFORENCRYPTION);
 
         // Restore instance state
         if (savedInstanceState != null) { onRestoreInstanceState(savedInstanceState); }
 
         Bundle extras = getIntent().getExtras();
-        user_id = encrypter.decryptText(extras.getByteArray("id"));
-        user_name = encrypter.decryptText(extras.getByteArray("username"));
-        user_email = encrypter.decryptText(extras.getByteArray("email"));
-        password = encrypter.decryptText(extras.getByteArray("password"));
+        user_id = encrypter.decryptText(extras.getByteArray("id"), KEYFORENCRYPTION);
+        user_name = encrypter.decryptText(extras.getByteArray("username"), KEYFORENCRYPTION);
+        user_email = encrypter.decryptText(extras.getByteArray("email"), KEYFORENCRYPTION);
+        password = encrypter.decryptText(extras.getByteArray("password"), KEYFORENCRYPTION);
 
         Log.d(TAG, "User id up in this bitch: " + user_id);
         Log.d(TAG, "User name up in this bitch: " + user_name);
@@ -302,17 +301,17 @@ public class SMSVerify extends AppCompatActivity implements View.OnClickListener
             case STATE_VERIFY_SUCCESS:
                 Intent i = new Intent(SMSVerify.this, MainActivity.class);
                 try {
-                    i.putExtra("username", encrypter.encryptText(user_name));
+                    i.putExtra("username", encrypter.encryptText(user_name, KEYFORENCRYPTION));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 try {
-                    i.putExtra("id", encrypter.encryptText(user_id));
+                    i.putExtra("id", encrypter.encryptText(user_id, KEYFORENCRYPTION));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 try {
-                    i.putExtra("email", encrypter.encryptText(user_email));
+                    i.putExtra("email", encrypter.encryptText(user_email, KEYFORENCRYPTION));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

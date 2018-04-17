@@ -90,12 +90,12 @@ public class ListActivity extends AppCompatActivity {
     Spinner listSpinner;
     private String dbVal = "";
     private Encryption encrypter;
-    private final String KEYFORENCRYPTION = "ThisIsOurKey";
+    private final String KEYFORENCRYPTION = "ThisIsOurKeyasdfasdfasdfasdgasdfasdgasdafsdgasdfasdgasdafsdgashfhaefdbfdasdfasdgasdfasdgasdfasd";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        encrypter = new Encryption(KEYFORENCRYPTION.getBytes());
+        encrypter = new Encryption(KEYFORENCRYPTION);
 
         setTitle("My To-Do Lists");
 
@@ -105,9 +105,9 @@ public class ListActivity extends AppCompatActivity {
         currentListFirebaseId = new ArrayList<>();
 
         Bundle extras = getIntent().getExtras();
-        userid = encrypter.decryptText(extras.getByteArray("id"));
-        username = encrypter.decryptText(extras.getByteArray("username"));
-        email = encrypter.decryptText(extras.getByteArray("email"));
+        userid = encrypter.decryptText(extras.getByteArray("id"), KEYFORENCRYPTION);
+        username = encrypter.decryptText(extras.getByteArray("username"), KEYFORENCRYPTION);
+        email = encrypter.decryptText(extras.getByteArray("email"), KEYFORENCRYPTION);
 
         User.name = username;
         User.email = email;

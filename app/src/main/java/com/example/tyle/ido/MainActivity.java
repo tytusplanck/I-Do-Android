@@ -77,8 +77,7 @@ public class MainActivity extends AppCompatActivity {
     double totalCost;
 
     private Encryption encrypter;
-    private final String KEYFORENCRYPTION = "ThisIsOurKey";
-
+    String KEYFORENCRYPTION = "This is the Key I guess";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,12 +85,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
 
-        encrypter = new Encryption(KEYFORENCRYPTION.getBytes());
+        encrypter = new Encryption(KEYFORENCRYPTION);
 
         Bundle extras = getIntent().getExtras();
-        userid = encrypter.decryptText(extras.getByteArray("id"));
-        username = encrypter.decryptText(extras.getByteArray("username"));
-        email = encrypter.decryptText(extras.getByteArray("email"));
+        userid = encrypter.decryptText(extras.getByteArray("id"), KEYFORENCRYPTION);
+        username = encrypter.decryptText(extras.getByteArray("username"), KEYFORENCRYPTION);
+        email = encrypter.decryptText(extras.getByteArray("email"), KEYFORENCRYPTION);
 
 
         Log.d(TAG, "Userid from oncreate: " + userid);
@@ -161,17 +160,17 @@ public class MainActivity extends AppCompatActivity {
                                     long id) {
                 Intent intent = new Intent(MainActivity.this, ListActivity.class);
                 try {
-                    intent.putExtra("username", encrypter.encryptText(username));
+                    intent.putExtra("username", encrypter.encryptText(username, KEYFORENCRYPTION));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 try {
-                    intent.putExtra("id", encrypter.encryptText(userid));
+                    intent.putExtra("id", encrypter.encryptText(userid, KEYFORENCRYPTION));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 try {
-                    intent.putExtra("email", encrypter.encryptText(email));
+                    intent.putExtra("email", encrypter.encryptText(email, KEYFORENCRYPTION));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -272,17 +271,17 @@ public class MainActivity extends AppCompatActivity {
     public void jumpToLists(View view) {
         Intent intent = new Intent(this, ListActivity.class);
         try {
-            intent.putExtra("username", encrypter.encryptText(username));
+            intent.putExtra("username", encrypter.encryptText(username, KEYFORENCRYPTION));
         } catch (Exception e) {
             e.printStackTrace();
         }
         try {
-            intent.putExtra("id", encrypter.encryptText(userid));
+            intent.putExtra("id", encrypter.encryptText(userid, KEYFORENCRYPTION));
         } catch (Exception e) {
             e.printStackTrace();
         }
         try {
-            intent.putExtra("email", encrypter.encryptText(email));
+            intent.putExtra("email", encrypter.encryptText(email, KEYFORENCRYPTION));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -314,17 +313,17 @@ public class MainActivity extends AppCompatActivity {
     public void changePassword() {
         Intent intent = new Intent(this, ChangePassword.class);
         try {
-            intent.putExtra("username", encrypter.encryptText(username));
+            intent.putExtra("username", encrypter.encryptText(username, KEYFORENCRYPTION));
         } catch (Exception e) {
             e.printStackTrace();
         }
         try {
-            intent.putExtra("id", encrypter.encryptText(userid));
+            intent.putExtra("id", encrypter.encryptText(userid, KEYFORENCRYPTION));
         } catch (Exception e) {
             e.printStackTrace();
         }
         try {
-            intent.putExtra("email", encrypter.encryptText(email));
+            intent.putExtra("email", encrypter.encryptText(email, KEYFORENCRYPTION));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -334,17 +333,17 @@ public class MainActivity extends AppCompatActivity {
     public void jumpToVenue(View view) {
         Intent intent = new Intent(this, VenueMapSearch.class);
         try {
-            intent.putExtra("username", encrypter.encryptText(username));
+            intent.putExtra("username", encrypter.encryptText(username, KEYFORENCRYPTION));
         } catch (Exception e) {
             e.printStackTrace();
         }
         try {
-            intent.putExtra("id", encrypter.encryptText(userid));
+            intent.putExtra("id", encrypter.encryptText(userid, KEYFORENCRYPTION));
         } catch (Exception e) {
             e.printStackTrace();
         }
         try {
-            intent.putExtra("email", encrypter.encryptText(email));
+            intent.putExtra("email", encrypter.encryptText(email, KEYFORENCRYPTION));
         } catch (Exception e) {
             e.printStackTrace();
         }

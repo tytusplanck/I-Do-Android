@@ -21,13 +21,12 @@ public class SplashScreen extends AppCompatActivity {
     private FirebaseAuth auth;
     private String name, id, email;
     private Encryption encrypter;
-    private final String KEYFORENCRYPTION = "ThisIsOurKey";
-
+    String KEYFORENCRYPTION = "This is the Key I guess";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        encrypter = new Encryption(KEYFORENCRYPTION.getBytes());
+        encrypter = new Encryption(KEYFORENCRYPTION);
 
         auth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_splash_screen);
@@ -55,17 +54,17 @@ public class SplashScreen extends AppCompatActivity {
 
                     Intent i = new Intent(SplashScreen.this, MainActivity.class);
                     try {
-                        i.putExtra("username", encrypter.encryptText(currentUser.getDisplayName()));
+                        i.putExtra("username", encrypter.encryptText(currentUser.getDisplayName(), KEYFORENCRYPTION));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                     try {
-                        i.putExtra("id", encrypter.encryptText(currentUser.getUid()));
+                        i.putExtra("id", encrypter.encryptText(currentUser.getUid(), KEYFORENCRYPTION));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                     try {
-                        i.putExtra("email", encrypter.encryptText(currentUser.getEmail()));
+                        i.putExtra("email", encrypter.encryptText(currentUser.getEmail(), KEYFORENCRYPTION));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

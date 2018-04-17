@@ -42,7 +42,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private Boolean mAllowNavigation = true;
     private FirebaseAuth auth;
     private Encryption encrypter;
-    private final String KEYFORENCRYPTION = "ThisIsOurKey";
+    String KEYFORENCRYPTION = "This is the Key I guess";
     private String name;
     private String password;
 
@@ -51,7 +51,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        encrypter = new Encryption(KEYFORENCRYPTION.getBytes());
+        encrypter = new Encryption(KEYFORENCRYPTION);
         // Set up the current page
         auth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
@@ -69,8 +69,10 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 final FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
+                    Log.d(TAG, "key contents: " + KEYFORENCRYPTION);
                     // User is signed in
                     Log.d(TAG, "Name: " + name);
+                    Log.d(TAG, "Name in Bytes" + name.getBytes());
                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                             .setDisplayName(name)
                             .build();
@@ -88,22 +90,22 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                                             mAllowNavigation = false;
                                             Intent i = new Intent(getApplicationContext(), SMSVerify.class);
                                             try {
-                                                i.putExtra("username", encrypter.encryptText(user.getDisplayName()));
+                                                i.putExtra("username", encrypter.encryptText(user.getDisplayName(), KEYFORENCRYPTION));
                                             } catch (Exception e) {
                                                 e.printStackTrace();
                                             }
                                             try {
-                                                i.putExtra("id", encrypter.encryptText(user.getUid()));
+                                                i.putExtra("id", encrypter.encryptText(user.getUid(), KEYFORENCRYPTION));
                                             } catch (Exception e) {
                                                 e.printStackTrace();
                                             }
                                             try {
-                                                i.putExtra("email", encrypter.encryptText(user.getEmail()));
+                                                i.putExtra("email", encrypter.encryptText(user.getEmail(), KEYFORENCRYPTION));
                                             } catch (Exception e) {
                                                 e.printStackTrace();
                                             }
                                             try {
-                                                i.putExtra("password", encrypter.encryptText(password));
+                                                i.putExtra("password", encrypter.encryptText(password, KEYFORENCRYPTION));
                                             } catch (Exception e) {
                                                 e.printStackTrace();
                                             }
