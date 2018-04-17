@@ -169,6 +169,7 @@ public class ChangePassword extends AppCompatActivity implements View.OnClickLis
                                 } else {
                                     Toast.makeText(ChangePassword.this, "Password Successfully Changed",
                                             Toast.LENGTH_SHORT).show();
+                                    cancelUpdate();
                                 }
                             }
                         });

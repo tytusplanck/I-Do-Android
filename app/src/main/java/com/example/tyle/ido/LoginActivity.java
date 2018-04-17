@@ -188,7 +188,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     @Override
     public void onStart() {
         super.onStart();
-        Log.d(TAG, "SignUp Activity has started.");
+        Log.d(TAG, "Homescreen Login Activity has started.");
         auth.addAuthStateListener(authchange);
     }
 

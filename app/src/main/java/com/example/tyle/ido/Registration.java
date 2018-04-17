@@ -132,7 +132,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onStart() {
         super.onStart();
-        Log.d(TAG, "SignUp Activity has started.");
+        Log.d(TAG, "Registration Activity has started.");
         auth.addAuthStateListener(authchange);
     }
 

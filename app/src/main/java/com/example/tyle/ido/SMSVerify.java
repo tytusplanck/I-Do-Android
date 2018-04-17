@@ -185,6 +185,7 @@ public class SMSVerify extends AppCompatActivity implements View.OnClickListener
         super.onStart();
         // Load the initial SMS verification screen
         updateUI();
+        Log.d(TAG, "SMSVERIFY STARTED");
         if (mVerificationInProgress && validatePhoneNumber()) {
             startPhoneNumberVerification(mPhoneNumberField.getText().toString());
         }
@@ -215,17 +216,8 @@ public class SMSVerify extends AppCompatActivity implements View.OnClickListener
     }
 
     private void verifyPhoneNumberWithCode(String verificationId, String code) {
-        FirebaseUser current = mAuth.getCurrentUser();
         PhoneAuthCredential verify = PhoneAuthProvider.getCredential(verificationId, code);
-        String smsCode = verify.getSmsCode();
-        if (smsCode.equals(code)) {
-            // Sign in success, update UI with the signed-in user's information
-            Log.d(TAG, "signInWithCredential:success");
-            updateUI(STATE_VERIFY_SUCCESS, current);
-        } else {
-            // Sign in failed, display a message and update the UI
-            Log.w(TAG, "VerifyWithCredential:failure");
-        }
+        signInWithPhoneAuthCredential(verify);
     }
 
     private void resendVerificationCode(String phoneNumber,
@@ -249,6 +241,7 @@ public class SMSVerify extends AppCompatActivity implements View.OnClickListener
                             Log.d(TAG, "signInWithCredential:success");
 
                             mAuth.signOut();
+                            Log.d(TAG, "Signed out of accounts");
                             signInWithUserCreds();
                         } else {
                             // Sign in failed, display a message and update the UI
