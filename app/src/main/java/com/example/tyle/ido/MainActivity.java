@@ -1,5 +1,5 @@
 /**
- * Created by kylerossman on 10/2/17.
+ * Created by .
  */
 
 package com.example.tyle.ido;
@@ -50,10 +50,16 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
-
+/**
+ * Not all original code
+ *
+ * Contributors: Kenton, Kyle, Jenn, Tytus
+ *
+ * The main activity which displays the to-do lists.  Contains a gateway to signout, previously unimplemented, and change password, which gives users the ability to
+ * change their password after resetting the project.
+ */
 public class MainActivity extends AppCompatActivity {
 
-    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     private static final String TAG = "MainActivity";
     private FirebaseAuth mAuth;
    // private Session currentSession;
@@ -175,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -258,15 +265,6 @@ public class MainActivity extends AppCompatActivity {
         listRef.addChildEventListener(childEventListener);
     }
 
-    public void signOut() {
-        // Firebase sign out
-        mAuth.signOut();
-        Toast.makeText(MainActivity.this, "Successfully Logged Out!", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(this, LoginActivity.class));
-        finish();
-
-    }
-
     /** Called when the user taps the Send button */
     public void jumpToLists(View view) {
         Intent intent = new Intent(this, ListActivity.class);
@@ -288,6 +286,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * New method, inflates the menu with change password and sign out options
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -295,6 +298,12 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * New method
+     * Calls methods based on what you click from the inflated menu
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -309,7 +318,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Logs user out of account and returns them to the homescreen
+     */
+    public void signOut() {
+        mAuth.signOut();
+        Toast.makeText(MainActivity.this, "Successfully Logged Out!", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this, LoginActivity.class));
+        finish();
 
+    }
+
+
+    /**
+     * Starts the ChangePassword activity so user can change password
+     */
     public void changePassword() {
         Intent intent = new Intent(this, ChangePassword.class);
         try {
@@ -329,7 +352,8 @@ public class MainActivity extends AppCompatActivity {
         }
         startActivity(intent);
     }
-    /** Called when the user taps the Send button */
+
+    /** Starts the VenueSearch activity when user clicks Search Vendor button */
     public void jumpToVenue(View view) {
         Intent intent = new Intent(this, VenueMapSearch.class);
         try {
@@ -349,26 +373,5 @@ public class MainActivity extends AppCompatActivity {
         }
         startActivity(intent);
     }
-
-    public void showDialog()
-    {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("You do not have a network connection.  Connect? ")
-                .setCancelable(false)
-                .setPositiveButton("Connection Settings", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        startActivity(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS));
-                        MainActivity.this.finish();
-                    }
-                })
-                .setNegativeButton("Exit", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        MainActivity.this.finish();
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
 
 }

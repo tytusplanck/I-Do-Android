@@ -30,7 +30,14 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+/**
+ * All Original Code.
+ *
+ * Contributors: Kenton, Jenn
+ *
+ * This class handles registering users to Firebase with an email and password,
+ * including password strength checking requirements upon registration.
+ */
 
 public class Registration extends AppCompatActivity implements View.OnClickListener {
 
@@ -162,18 +169,24 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         String confirm_password =confirmPassword.getText().toString();
         name = fullName.getText().toString();
 
-
         boolean cancel = false;
         View focusView = null;
 
-
+        // Check if the Name field is empty
         if (TextUtils.isEmpty(name)) {
             fullName.setError(getString(R.string.error_field_required));
             focusView = fullName;
             cancel = true;
         }
 
-
+        /*
+        Check for VALID password
+        Requirement 1: Password must be 8 characters
+        Requirement 2: Password must be contain at least one uppercase letter
+        Requirement 3: Password must contain at least one number
+        Requirement 4: Password must contain a special character
+        Requirement 5: Password must not contain keywords AND/NOT
+        */
         boolean hasUppercase = !password.equals(password.toLowerCase());
         boolean hasLowercase = !password.equals(password.toUpperCase());
         // Check for matching passwords, if the user entered one.
@@ -185,32 +198,23 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             passwordField.setError(getString(R.string.password_confirmation_error));
             focusView = passwordField;
             cancel = true;
-        }
-        /*
-        Check for VALID password
-        Requirement 1: Password must be 8 characters
-        Requirement 2: Password must be contain at least one uppercase letter
-        Requirement 3: Password must contain at least one number
-        Requirement 4: Password must contain a special character
-        Requirement 5: Password must not contain keywords AND/NOT
-        */
-        else if(password.length() < 8){
+        } else if (password.length() < 8){
             passwordField.setError("Password must be at least 8 characters long");
             focusView = passwordField;
             cancel = true;
-        }else if(!hasUppercase || !hasLowercase){
+        } else if (!hasUppercase || !hasLowercase){
             passwordField.setError("Password must be have at least one uppercase and one lowercase letter");
             focusView = passwordField;
             cancel = true;
-        }else if(!password.matches(".*\\d.*")){
+        } else if (!password.matches(".*\\d.*")){
             passwordField.setError("Password must contain at least one number");
             focusView = passwordField;
             cancel = true;
-        }else if(!password.matches(".*[!@#$%^&*].*")){
+        } else if (!password.matches(".*[!@#$%^&*].*")){
             passwordField.setError("Password must contain a special character");
             focusView = passwordField;
             cancel = true;
-        }else if(password.contains("AND") || password.contains("NOT")){
+        } else if (password.contains("AND") || password.contains("NOT")){
             passwordField.setError("Password must be not contain keywords AND/NOT");
             focusView = passwordField;
             cancel = true;
@@ -218,8 +222,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
 
         // Check for a valid email address.
-
-        //Email Validation pattern
+        // Email Validation pattern
         String regEx = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,4}";
         Pattern pattern = Pattern.compile(regEx, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);

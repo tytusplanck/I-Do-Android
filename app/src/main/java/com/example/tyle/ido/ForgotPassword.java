@@ -21,6 +21,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * All Original Code
+ *
+ * Contributors: Jenn
+ *
+ * Allows a user with a valid account to input their email and have a reset password link sent to them.
+ */
 public class ForgotPassword extends AppCompatActivity implements View.OnClickListener{
     private EditText registeredEmail;
     private TextView cancel, submit;

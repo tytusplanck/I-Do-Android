@@ -47,25 +47,17 @@ import java.util.Map;
 public class ListActivity extends AppCompatActivity {
     private static final String TAG = "ListActivity";
 
-    int clickCounter = 0;
-
-    private Button btn;
     public ProgressDialog progress;
 
-    //private DatabaseReference mDatabase;
 
     private Thread t1 = null;
     private Thread t2 = null;
 
 
     private String username = "";
-    private String email;
-    private String userid;
+    private String email, userid, name, des;
 
     LayoutInflater inflater;
-    private String name;
-    private String des;
-//    private ArrayAdapter<String> adapter;
 
     ListView listView;
     ArrayList<ToDoList> currentList;
@@ -90,7 +82,7 @@ public class ListActivity extends AppCompatActivity {
     Spinner listSpinner;
     private String dbVal = "";
     private Encryption encrypter;
-    private final String KEYFORENCRYPTION = "ThisIsOurKeyasdfasdfasdfasdgasdfasdgasdafsdgasdfasdgasdafsdgashfhaefdbfdasdfasdgasdfasdgasdfasd";
+    private final String KEYFORENCRYPTION = "This is the Key I guess";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +100,7 @@ public class ListActivity extends AppCompatActivity {
         userid = encrypter.decryptText(extras.getByteArray("id"), KEYFORENCRYPTION);
         username = encrypter.decryptText(extras.getByteArray("username"), KEYFORENCRYPTION);
         email = encrypter.decryptText(extras.getByteArray("email"), KEYFORENCRYPTION);
+        Log.d(TAG, "id:" + userid);
 
         User.name = username;
         User.email = email;
@@ -306,24 +299,17 @@ public class ListActivity extends AppCompatActivity {
 
                                 ListItem newItem = new ListItem(itemName, itemCost, 0);
 
-
-                                //possible add threading
                                 listDataChild.get(listToAddTo).add(newItem);
                                 addSome.child(String.valueOf(snapshot.child("toDoList").getChildrenCount())).setValue(newItem);
                                 listAdapter.notifyDataSetChanged();
-
-
                             }
                         }
-
-
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                     }
                 });
-
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -353,20 +339,27 @@ public class ListActivity extends AppCompatActivity {
 
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//
-//        if(item.getItemId() == android.R.id.home) {
-//            onBackPressed();
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Intent i = new Intent(ListActivity.this, MainActivity.class);
+        try {
+            i.putExtra("username", encrypter.encryptText(username, KEYFORENCRYPTION));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            i.putExtra("id", encrypter.encryptText(userid, KEYFORENCRYPTION));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            i.putExtra("email", encrypter.encryptText(email, KEYFORENCRYPTION));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        startActivity(i);
         this.finish();
     }
 

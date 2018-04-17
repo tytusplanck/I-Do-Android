@@ -20,6 +20,14 @@ import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+/**
+ * All original code.
+ *
+ * Contributors: Kenton, Jenn
+ *
+ * Offers users the ability to change their password without going through the forgot password link;
+ */
+
 public class ChangePassword extends AppCompatActivity implements View.OnClickListener {
 
     private EditText oldPassword, newPassword, confirmNewPassword;

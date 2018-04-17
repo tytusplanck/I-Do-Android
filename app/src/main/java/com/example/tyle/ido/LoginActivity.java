@@ -47,7 +47,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * A login screen that offers login via email/password.
+ * All original code.
+ *
+ * Contributors: Kenton, Jenn, Kyle, Tytus
+ *
+ * This is the default display activity that displays if a user has not previously logged in.
+ * If the user has an account, they are able to log in with the email and password used during registration,
+ * or they can click to register for an account, or log-in through their google account.
+ * Also is the launch point for the forgot password functionality, if the user can't remember their password.
  */
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
@@ -324,11 +331,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.createAccount:
-                if (hasNetworkConnection()) {
-                    createAccount(v);
-                } else {
-                    showDialog();
-                }
+                createAccount(v);
                 break;
             case R.id.forgot_password:
                 forgotPassword(v);
@@ -352,7 +355,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
 
     /**
-     * Activity for recovering a user's password
+     * Start Activity for recovering a user's password
      */
     public void forgotPassword(View v) {
         startActivity(new Intent(LoginActivity.this, ForgotPassword.class));
@@ -360,7 +363,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     /**
-     * Activity for creating a new account
+     * Start Activity for creating a new account
      */
     public void createAccount(View v) {
         startActivity(new Intent(LoginActivity.this, Registration.class));

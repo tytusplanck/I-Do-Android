@@ -1,6 +1,5 @@
 package com.example.tyle.ido;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,7 +11,13 @@ import com.google.firebase.auth.FirebaseUser;
 
 
 /**
- * Class to display a loading screen briefly when the app is started
+ * All original code.
+ *
+ * Contributors: Kenton
+ *
+ * Class that displays a default screen upon app start, checks if user was authenticated when the app was closed.
+ * If user is logged in, MainActivity is started.  Otherwise, the default homescreen is loaded.
+ *
  */
 public class SplashScreen extends AppCompatActivity {
 
