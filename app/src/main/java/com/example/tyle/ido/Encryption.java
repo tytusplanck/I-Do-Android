@@ -4,7 +4,9 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
-
+/**
+ * Developed by Kyle Rossman to use an algorithm similar to a RC4 stream cipher to encrypt and decrypt strings.
+ */
 public class Encryption {
     private static final int S_LENGTH = 256;
 
@@ -13,20 +15,30 @@ public class Encryption {
      */
     private byte[] key = new byte[S_LENGTH - 1];
 
+    /**
+     * Initialization key stream
+     */
     private int[] s = new int[S_LENGTH];
 
-    public Encryption() {
-        emptyArrays();
-    }
-
+    /**
+     * Instantiates an instance of the Encryption class with the specified key.
+     * @param key is typically the same throughout all classes in the project so that decryption can happen.
+     */
     public Encryption(String key) {
         this();
         this.key = key.getBytes();
     }
 
+    /**
+     *
+     */
     private void emptyArrays() {
         Arrays.fill(key, (byte) 0);
         Arrays.fill(s, 0);
+    }
+
+    public Encryption() {
+        emptyArrays();
     }
 
     /**
@@ -37,40 +49,43 @@ public class Encryption {
      * @return encrypted message
      */
     public byte[] encryptText(String message, String key) {
+
+        //First, clear out what was previously in the key stream and the key array
         emptyArrays();
+
+        //set the bytes of the current key as the associated key variable
         this.key = key.getBytes();
-        byte[] crypt = crypt(message.getBytes());
+
+        //calls the cipher that takes the plain text message and encrypts it.
+        byte[] crypt = cipher(message.getBytes());
         emptyArrays();
+
+        //returns the XOR'd product of the cipher method
         return crypt;
     }
 
     /**
-     * Decrypt given byte[] message array with given charset and key
-     *
-     * @param message message to be decrypted
-     * @param charset charset of message
-     * @param key     key
-     * @return string in given charset
-     */
-    public String decryptText(byte[] message, Charset charset, String key) {
-        emptyArrays();
-        this.key = key.getBytes();
-        byte[] msg = crypt(message);
-        emptyArrays();
-        return new String(msg);
-    }
-
-    /**
-     * Decrypt given byte[] message array with given key and pre-defined UTF-8
-     * charset
+     * Decrypts the cipher text byte array using the given string.
      *
      * @param message message to be decrypted
      * @param key     key
      * @return string in given charset
-     * @see StandardCharsets
      */
     public String decryptText(byte[] message, String key) {
-        return decryptText(message, StandardCharsets.UTF_8, key);
+
+        //Clear previous contents of array and replace with all zeros
+        emptyArrays();
+
+        //set the current key as the bytes associated with string key
+        this.key = key.getBytes();
+
+        //call the cipher class to take encrypted stream and decrypt back to original message
+        byte[] msg = cipher(message);
+
+        emptyArrays();
+
+        //returns the equivalent string of the returned decrypted byte array
+        return new String(msg);
     }
 
     /**
@@ -79,7 +94,7 @@ public class Encryption {
      *
      * @param msg array to be crypt
      **/
-    public byte[] crypt(final byte[] msg) {
+    public byte[] cipher(final byte[] msg) {
 
         //Generates the Key Stream
         s = new int[S_LENGTH];
@@ -97,19 +112,32 @@ public class Encryption {
         }
 
         //XOR values and create the encrypted/decrypted byte array
-        byte[] code = new byte[msg.length];
+        byte[] xOR = new byte[msg.length]; //creates byte to hold the result of the xor operation
         int i = 0;
         int j2 = 0; //used j2 to keep with the syntax of the algorithm
+
+        //loops for each spot in the byte array and find the xor value of the corresponding message byte and the random temp array
         for (int n = 0; n < msg.length; n++) {
-            i = (i + 1) % S_LENGTH;
-            j2 = (j2 + s[i]) % S_LENGTH;
+            i = (i + 1) % S_LENGTH; //increment i continuously
+            j2 = (j2 + s[i]) % S_LENGTH; //creates a "random" value for j
+
+            //flips the values of i and j2 in s to disrupt the initialized order
             flip(i, j2, s);
-            int rand = s[(s[i] + s[j2]) % S_LENGTH];
-            code[n] = (byte) (rand ^ msg[n]);
+            int pseudoRand = s[(s[i] * 2 + s[j2] * 3) % S_LENGTH];
+
+            //Finally casts the xor operation between the random value and the spot in the message as a byte
+            xOR[n] = (byte) (pseudoRand ^ msg[n]);
         }
-        return code;
+        return xOR;
     }
 
+    /**
+     * As we iterate over s, we swap values of each location with a random index j.
+     *
+     * @param i
+     * @param j
+     * @param s
+     */
     private void flip(int i, int j, int[] s) {
         int temp = s[i];
         s[i] = s[j];
