@@ -21,9 +21,7 @@ import javax.crypto.spec.GCMParameterSpec;
 
 /**
  * Original Code
- */
-
-/**
+ *
  * Created by Kenton, Kyle, and Tytus.  This encryption class implements AES 128 bit encryption
  * but due to the minimum API level required (API 23), we couldn't demo it on any phones we had.
  * The algorithm correctly works encrypting/decrypting data from testing on emulators, but we decided

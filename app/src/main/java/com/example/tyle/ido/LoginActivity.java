@@ -55,6 +55,8 @@ import java.util.regex.Pattern;
  * If the user has an account, they are able to log in with the email and password used during registration,
  * or they can click to register for an account, or log-in through their google account.
  * Also is the launch point for the forgot password functionality, if the user can't remember their password.
+ *
+ * Contains code for checking if the device accessing the application is rooted, and disallows access if this is the case.
  */
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
@@ -204,6 +206,37 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         if (authchange != null) {
             auth.removeAuthStateListener(authchange);
         }
+    }
+
+    // Contains check if device is rooted.
+    @Override
+    protected void onResume() {
+        super.onResume();
+        RootedCheck rooted = new RootedCheck();
+        // If device is rooted, disallow access by exiting the app
+        if(rooted.isDeviceRooted()){
+            showAlertDialogAndExitApp("This device is rooted. You can't use this app.");
+        }
+    }
+
+
+    public void showAlertDialogAndExitApp(String message) {
+        AlertDialog alertDialog = new AlertDialog.Builder(LoginActivity.this).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage(message);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+
+        alertDialog.show();
     }
 
     /**

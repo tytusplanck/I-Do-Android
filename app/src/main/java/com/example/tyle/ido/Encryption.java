@@ -5,7 +5,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 /**
- * Developed by Kyle Rossman to use an algorithm similar to a RC4 stream cipher to encrypt and decrypt strings.
+
+ * All Original Code
+ *
+ * Contributors: Tytus and Kyle
+ *
+ * This class contains custom RC4 encryption, with methods that will encrypt and decrypt input as called, as well as the methods those methods call in order to implement the actual encryption.
  */
 public class Encryption {
     private static final int S_LENGTH = 256;

@@ -39,6 +39,16 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
+/**
+ * All original code.
+ *
+ * Contributors: Tytus and Kyle
+ *
+ * This class contains all of the methods for implementing 2 factor authentication.  The UI is instantiated, user inputs phone number and presses start,
+ * then a verificationID and code are combined into a credential to log in on the server.  The phone number is sent to the server, and then the 6 digit code
+ * is sent to the user in a text message.  Upon entering the code, the code is validated against the credential and if correct, the user is fully signed in.
+ */
+
 public class SMSVerify extends AppCompatActivity implements View.OnClickListener {
 
     // Tag for logging events
