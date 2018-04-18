@@ -35,13 +35,16 @@ public class Encryption {
     }
 
     /**
-     *
+     * This resets our byte arrays used to all zeros after we get done encrypting or decrypting.
      */
     private void emptyArrays() {
         Arrays.fill(key, (byte) 0);
         Arrays.fill(s, 0);
     }
 
+    /**
+     * When the Encryption instance is instantiated we reset the arrays being used since they're public
+     */
     public Encryption() {
         emptyArrays();
     }
@@ -72,8 +75,8 @@ public class Encryption {
     /**
      * Decrypts the cipher text byte array using the given string.
      *
-     * @param message message to be decrypted
-     * @param key     key
+     * @param message the encrypted data that we are going to decrypt
+     * @param key     String key that we convert to bytes to in RC4 algorithm
      * @return string in given charset
      */
     public String decryptText(byte[] message, String key) {
@@ -94,10 +97,10 @@ public class Encryption {
     }
 
     /**
-     * Crypt given byte array. Be aware, that you must init key, before using
-     * crypt.
+     * We give our Cipher method a byte array and it instantiates a keystream, and uses pseudo
+     * random numbers to mix up the order so that we have something we can use to XOR the original data with.
      *
-     * @param msg array to be crypt
+     * @param msg array to be encrypted/decrypted
      **/
     public byte[] cipher(final byte[] msg) {
 
@@ -137,11 +140,11 @@ public class Encryption {
     }
 
     /**
-     * As we iterate over s, we swap values of each location with a random index j.
+     * As we iterate over our key stream array s, we swap out each index of s i, with another randomly generated index to introduce ariation
      *
-     * @param i
-     * @param j
-     * @param s
+     * @param i iteration index
+     * @param j generated index
+     * @param s byte array
      */
     private void flip(int i, int j, int[] s) {
         int temp = s[i];

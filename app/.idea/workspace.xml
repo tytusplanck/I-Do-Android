@@ -11,7 +11,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="af7ca7de-db58-40f5-a138-07bdfd45e77f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/tyle/ido/Encryption.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/tyle/ido/Encryption.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -40,27 +40,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="195">
               <caret line="41" column="13" lean-forward="false" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
-              <folding>
-                <marker date="1524001379956" expanded="true" signature="9573:9597" ph="//..." />
-                <marker date="1524001379956" expanded="true" signature="9573:12069" ph="{...}" />
-                <marker date="1524001379956" expanded="true" signature="10186:10289" ph="//..." />
-                <marker date="1524001379956" expanded="true" signature="10357:10465" ph="//..." />
-                <marker date="1524001379956" expanded="true" signature="10709:12051" ph="{...}" />
-                <marker date="1524001379956" expanded="true" signature="10824:12029" ph="{...}" />
-                <marker date="1524001379956" expanded="true" signature="10953:11208" ph="//..." />
-                <marker date="1524001379956" expanded="true" signature="12142:12423" ph="{...}" />
-                <marker date="1524001379956" expanded="true" signature="12471:12834" ph="{...}" />
-                <marker date="1524001379956" expanded="true" signature="12840:12899" ph="/**...*/" />
-                <marker date="1524001379956" expanded="true" signature="12942:13042" ph="{...}" />
-                <marker date="1524001379956" expanded="true" signature="13048:13196" ph="/**...*/" />
-                <marker date="1524001379956" expanded="true" signature="13240:13893" ph="{...}" />
-                <marker date="1524001379956" expanded="true" signature="13899:14002" ph="/**...*/" />
-                <marker date="1524001379956" expanded="true" signature="14033:14875" ph="{...}" />
-                <marker date="1524001379956" expanded="true" signature="14279:14549" ph="{...}" />
-                <marker date="1524001379956" expanded="true" signature="14353:14531" ph="{...}" />
-                <marker date="1524001379956" expanded="true" signature="14632:14799" ph="{...}" />
-                <marker date="1524001379956" expanded="true" signature="14706:14781" ph="{...}" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -68,14 +48,22 @@
       <file leaf-file-name="ListActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/ListActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
+            <state relative-caret-position="440">
               <caret line="46" column="13" lean-forward="false" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <marker date="1524001379954" expanded="true" signature="13609:13640" ph="{...}" />
-                <marker date="1524001379954" expanded="false" signature="13685:13696" ph=" { " />
-                <marker date="1524001379954" expanded="false" signature="13713:13719" ph=" }" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserSession.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/UserSession.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -83,8 +71,8 @@
       <file leaf-file-name="ListOfToDoListsAdapter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/ListOfToDoListsAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="40" column="13" lean-forward="false" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
+            <state relative-caret-position="75">
+              <caret line="37" column="37" lean-forward="true" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -93,30 +81,10 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="885">
+            <state relative-caret-position="210">
               <caret line="60" column="13" lean-forward="false" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
               <folding>
                 <marker date="1524001379955" expanded="false" signature="0:18" ph="/**...*/" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ChangePassword.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/ChangePassword.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="30" column="13" lean-forward="false" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
-              <folding>
-                <marker date="1524001379952" expanded="true" signature="1399:2332" ph="{...}" />
-                <marker date="1524001379952" expanded="true" signature="2381:2613" ph="{...}" />
-                <marker date="1524001379952" expanded="true" signature="2648:2875" ph="{...}" />
-                <marker date="1524001379952" expanded="true" signature="2912:7115" ph="{...}" />
-                <marker date="1524001379952" expanded="true" signature="5494:5597" ph="//..." />
-                <marker date="1524001379952" expanded="true" signature="5900:7096" ph="{...}" />
-                <marker date="1524001379952" expanded="true" signature="5993:7082" ph="{...}" />
-                <marker date="1524001379952" expanded="true" signature="6152:6860" ph="{...}" />
-                <marker date="1524001379952" expanded="true" signature="6269:6834" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -130,96 +98,16 @@
               <folding>
                 <marker date="1524028317456" expanded="true" signature="1762:1770" ph="/**...*/" />
                 <marker date="1524028317456" expanded="true" signature="15796:15840" ph="/**...*/" />
-                <marker date="1524028317456" expanded="true" signature="15879:15979" ph="{...}" />
-                <marker date="1524028317456" expanded="true" signature="15986:16134" ph="/**...*/" />
-                <marker date="1524028317456" expanded="true" signature="16178:16831" ph="{...}" />
-                <marker date="1524028317456" expanded="true" signature="16837:16940" ph="/**...*/" />
-                <marker date="1524028317456" expanded="true" signature="16971:17815" ph="{...}" />
-                <marker date="1524028317456" expanded="true" signature="17217:17488" ph="{...}" />
-                <marker date="1524028317456" expanded="true" signature="17291:17470" ph="{...}" />
-                <marker date="1524028317456" expanded="true" signature="17571:17739" ph="{...}" />
-                <marker date="1524028317456" expanded="true" signature="17645:17721" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SMSVerify.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/SMSVerify.java">
+      <file leaf-file-name="Session.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/Session.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="67" column="31" lean-forward="false" selection-start-line="67" selection-start-column="31" selection-end-line="67" selection-end-column="31" />
-              <folding>
-                <marker date="1524028317458" expanded="true" signature="3688:8112" ph="{...}" />
-                <marker date="1524028317458" expanded="true" signature="5607:8105" ph="{...}" />
-                <marker date="1524028317458" expanded="true" signature="5712:6375" ph="{...}" />
-                <marker date="1524028317458" expanded="true" signature="5730:6183" ph="//..." />
-                <marker date="1524028317458" expanded="true" signature="6465:7403" ph="{...}" />
-                <marker date="1524028317458" expanded="true" signature="6483:6635" ph="//..." />
-                <marker date="1524028317458" expanded="true" signature="7530:8104" ph="{...}" />
-                <marker date="1524028317458" expanded="true" signature="7548:7782" ph="//..." />
-                <marker date="1524028317458" expanded="true" signature="8154:8455" ph="{...}" />
-                <marker date="1524028317458" expanded="true" signature="8527:8657" ph="{...}" />
-                <marker date="1524028317458" expanded="true" signature="8742:8896" ph="{...}" />
-                <marker date="1524028317458" expanded="true" signature="8964:9495" ph="{...}" />
-                <marker date="1524028317458" expanded="true" signature="9576:9722" ph="{...}" />
-                <marker date="1524028317458" expanded="true" signature="9869:10329" ph="{...}" />
-                <marker date="1524028317458" expanded="true" signature="10415:11638" ph="{...}" />
-                <marker date="1524028317458" expanded="false" signature="10553:10698" ph="(task) → {" />
-                <marker date="1524028317458" expanded="false" signature="11628:11630" ph="}" />
-                <marker date="1524028317458" expanded="true" signature="11677:12140" ph="{...}" />
-                <marker date="1524028317458" expanded="false" signature="11787:11932" ph="(task) → {" />
-                <marker date="1524028317458" expanded="false" signature="12109:12132" ph="}" />
-                <marker date="1524028317458" expanded="false" signature="12180:12191" ph=" { " />
-                <marker date="1524028317458" expanded="false" signature="12233:12239" ph=" }" />
-                <marker date="1524028317458" expanded="false" signature="12268:12283" ph=" { " />
-                <marker date="1524028317458" expanded="false" signature="12317:12323" ph=" }" />
-                <marker date="1524028317458" expanded="true" signature="12382:14402" ph="{...}" />
-                <marker date="1524028317458" expanded="false" signature="13192:13217" ph="&quot;Code Sent&quot;" />
-                <marker date="1524028317458" expanded="false" signature="13514:13549" ph="&quot;Verification failed&quot;" />
-                <marker date="1524028317458" expanded="true" signature="14446:14693" ph="{...}" />
-                <marker date="1524028317458" expanded="true" signature="14739:14819" ph="{...}" />
-                <marker date="1524028317458" expanded="true" signature="14866:14947" ph="{...}" />
-                <marker date="1524028317458" expanded="true" signature="14998:15905" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AES_Encryption.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/AES_Encryption.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="35" column="64" lean-forward="false" selection-start-line="35" selection-start-column="64" selection-end-line="35" selection-end-column="64" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <marker date="1524028317455" expanded="true" signature="1742:1976" ph="/**...*/" />
-                <marker date="1524028317455" expanded="true" signature="2065:2220" ph="{...}" />
-                <marker date="1524028317455" expanded="true" signature="2226:2461" ph="/**...*/" />
-                <marker date="1524028317455" expanded="true" signature="2552:3466" ph="{...}" />
-                <marker date="1524028317455" expanded="true" signature="3094:3236" ph="//..." />
-                <marker date="1524028317455" expanded="true" signature="3472:3815" ph="/**...*/" />
-                <marker date="1524028317455" expanded="true" signature="4038:5073" ph="{...}" />
-                <marker date="1524028317455" expanded="true" signature="5079:5315" ph="/**...*/" />
-                <marker date="1524028317455" expanded="true" signature="5438:5494" ph="{...}" />
-                <marker date="1524028317455" expanded="true" signature="5501:5822" ph="/**...*/" />
-                <marker date="1524028317455" expanded="true" signature="5927:6287" ph="{...}" />
-                <marker date="1524028317455" expanded="true" signature="6294:6516" ph="/**...*/" />
-                <marker date="1524028317455" expanded="true" signature="6611:8045" ph="{...}" />
-                <marker date="1524028317455" expanded="true" signature="6893:6983" ph="//..." />
-                <marker date="1524028317455" expanded="true" signature="8051:8281" ph="/**...*/" />
-                <marker date="1524028317455" expanded="true" signature="8377:9790" ph="{...}" />
-                <marker date="1524028317455" expanded="true" signature="8659:8749" ph="//..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="24" lean-forward="false" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
+            <state relative-caret-position="60">
+              <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -228,13 +116,31 @@
       <file leaf-file-name="Encryption.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/Encryption.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="268">
-              <caret line="20" column="39" lean-forward="false" selection-start-line="20" selection-start-column="39" selection-end-line="20" selection-end-column="39" />
+            <state relative-caret-position="2160">
+              <caret line="146" column="26" lean-forward="false" selection-start-line="146" selection-start-column="26" selection-end-line="146" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1088#1089#0" expanded="true" />
-                <element signature="e#1117#1118#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ForgotPassword.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/ForgotPassword.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="30" column="13" lean-forward="false" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RootedCheck.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/RootedCheck.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -2275,6 +2181,80 @@
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="app">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="app">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="app">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="src">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="app">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="app">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="src">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="main">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="app">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="app">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="src">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="main">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="java">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="com/example/tyle/ido">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
@@ -2400,7 +2380,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1524065789297" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1524068599635" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -2448,7 +2428,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1524065789297" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1524068599635" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -2610,7 +2590,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1524065789298" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1524068599636" />
       </method>
     </configuration>
     <list size="1">
@@ -2729,16 +2709,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_main.xml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/LoginSuccessActivity.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/LoginActivity.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -2747,15 +2717,6 @@
           <folding>
             <marker date="1524028317456" expanded="true" signature="1762:1770" ph="/**...*/" />
             <marker date="1524028317456" expanded="true" signature="15796:15840" ph="/**...*/" />
-            <marker date="1524028317456" expanded="true" signature="15879:15979" ph="{...}" />
-            <marker date="1524028317456" expanded="true" signature="15986:16134" ph="/**...*/" />
-            <marker date="1524028317456" expanded="true" signature="16178:16831" ph="{...}" />
-            <marker date="1524028317456" expanded="true" signature="16837:16940" ph="/**...*/" />
-            <marker date="1524028317456" expanded="true" signature="16971:17815" ph="{...}" />
-            <marker date="1524028317456" expanded="true" signature="17217:17488" ph="{...}" />
-            <marker date="1524028317456" expanded="true" signature="17291:17470" ph="{...}" />
-            <marker date="1524028317456" expanded="true" signature="17571:17739" ph="{...}" />
-            <marker date="1524028317456" expanded="true" signature="17645:17721" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -2782,6 +2743,7 @@
       <provider editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
       <provider selected="true" editor-type-id="android-designer2">
@@ -2832,15 +2794,6 @@
           <folding>
             <marker date="1524028317456" expanded="true" signature="1762:1770" ph="/**...*/" />
             <marker date="1524028317456" expanded="true" signature="15796:15840" ph="/**...*/" />
-            <marker date="1524028317456" expanded="true" signature="15879:15979" ph="{...}" />
-            <marker date="1524028317456" expanded="true" signature="15986:16134" ph="/**...*/" />
-            <marker date="1524028317456" expanded="true" signature="16178:16831" ph="{...}" />
-            <marker date="1524028317456" expanded="true" signature="16837:16940" ph="/**...*/" />
-            <marker date="1524028317456" expanded="true" signature="16971:17815" ph="{...}" />
-            <marker date="1524028317456" expanded="true" signature="17217:17488" ph="{...}" />
-            <marker date="1524028317456" expanded="true" signature="17291:17470" ph="{...}" />
-            <marker date="1524028317456" expanded="true" signature="17571:17739" ph="{...}" />
-            <marker date="1524028317456" expanded="true" signature="17645:17721" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -2860,8 +2813,6 @@
           <folding>
             <element signature="imports" expanded="true" />
             <marker date="1524001379954" expanded="true" signature="13609:13640" ph="{...}" />
-            <marker date="1524001379954" expanded="false" signature="13685:13696" ph=" { " />
-            <marker date="1524001379954" expanded="false" signature="13713:13719" ph=" }" />
           </folding>
         </state>
       </provider>
@@ -2873,8 +2824,6 @@
           <folding>
             <element signature="imports" expanded="true" />
             <marker date="1524001379954" expanded="true" signature="13609:13640" ph="{...}" />
-            <marker date="1524001379954" expanded="false" signature="13685:13696" ph=" { " />
-            <marker date="1524001379954" expanded="false" signature="13713:13719" ph=" }" />
           </folding>
         </state>
       </provider>
@@ -2912,15 +2861,6 @@
           <folding>
             <marker date="1524028317456" expanded="true" signature="1762:1770" ph="/**...*/" />
             <marker date="1524028317456" expanded="true" signature="15796:15840" ph="/**...*/" />
-            <marker date="1524028317456" expanded="true" signature="15879:15979" ph="{...}" />
-            <marker date="1524028317456" expanded="true" signature="15986:16134" ph="/**...*/" />
-            <marker date="1524028317456" expanded="true" signature="16178:16831" ph="{...}" />
-            <marker date="1524028317456" expanded="true" signature="16837:16940" ph="/**...*/" />
-            <marker date="1524028317456" expanded="true" signature="16971:17815" ph="{...}" />
-            <marker date="1524028317456" expanded="true" signature="17217:17488" ph="{...}" />
-            <marker date="1524028317456" expanded="true" signature="17291:17470" ph="{...}" />
-            <marker date="1524028317456" expanded="true" signature="17571:17739" ph="{...}" />
-            <marker date="1524028317456" expanded="true" signature="17645:17721" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -2937,6 +2877,7 @@
       <provider editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
       <provider selected="true" editor-type-id="android-designer2">
@@ -2951,8 +2892,6 @@
           <folding>
             <element signature="imports" expanded="true" />
             <marker date="1524001379954" expanded="true" signature="13609:13640" ph="{...}" />
-            <marker date="1524001379954" expanded="false" signature="13685:13696" ph=" { " />
-            <marker date="1524001379954" expanded="false" signature="13713:13719" ph=" }" />
           </folding>
         </state>
       </provider>
@@ -2995,6 +2934,7 @@
       <provider editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
       <provider selected="true" editor-type-id="android-designer2">
@@ -3009,15 +2949,6 @@
           <folding>
             <marker date="1524028317456" expanded="true" signature="1762:1770" ph="/**...*/" />
             <marker date="1524028317456" expanded="true" signature="15796:15840" ph="/**...*/" />
-            <marker date="1524028317456" expanded="true" signature="15879:15979" ph="{...}" />
-            <marker date="1524028317456" expanded="true" signature="15986:16134" ph="/**...*/" />
-            <marker date="1524028317456" expanded="true" signature="16178:16831" ph="{...}" />
-            <marker date="1524028317456" expanded="true" signature="16837:16940" ph="/**...*/" />
-            <marker date="1524028317456" expanded="true" signature="16971:17815" ph="{...}" />
-            <marker date="1524028317456" expanded="true" signature="17217:17488" ph="{...}" />
-            <marker date="1524028317456" expanded="true" signature="17291:17470" ph="{...}" />
-            <marker date="1524028317456" expanded="true" signature="17571:17739" ph="{...}" />
-            <marker date="1524028317456" expanded="true" signature="17645:17721" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -3044,6 +2975,7 @@
       <provider editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
       <provider selected="true" editor-type-id="android-designer2">
@@ -3069,42 +3001,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/VenueMapSearch.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="31" column="13" lean-forward="false" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/UserSession.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/Session.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/SplashScreen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="870">
-          <caret line="71" column="106" lean-forward="false" selection-start-line="71" selection-start-column="106" selection-end-line="71" selection-end-column="106" />
-          <folding>
-            <marker date="1524001379956" expanded="true" signature="552:556" ph="/**...*/" />
-            <marker date="1524001379956" expanded="true" signature="942:3083" ph="{...}" />
-            <marker date="1524001379956" expanded="true" signature="1321:1533" ph="{...}" />
-            <marker date="1524001379956" expanded="true" signature="1383:1519" ph="{...}" />
-            <marker date="1524001379956" expanded="true" signature="1693:3042" ph="{...}" />
-            <marker date="1524001379956" expanded="true" signature="1755:3028" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/ChangePassword.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -3119,133 +3015,6 @@
             <marker date="1524001379952" expanded="true" signature="5993:7082" ph="{...}" />
             <marker date="1524001379952" expanded="true" signature="6152:6860" ph="{...}" />
             <marker date="1524001379952" expanded="true" signature="6269:6834" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/ForgotPassword.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/ListActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="46" column="13" lean-forward="false" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1524001379954" expanded="true" signature="13609:13640" ph="{...}" />
-            <marker date="1524001379954" expanded="false" signature="13685:13696" ph=" { " />
-            <marker date="1524001379954" expanded="false" signature="13713:13719" ph=" }" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/ListOfToDoListsAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="40" column="13" lean-forward="false" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/LoginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="60" column="13" lean-forward="false" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
-          <folding>
-            <marker date="1524028317456" expanded="true" signature="1762:1770" ph="/**...*/" />
-            <marker date="1524028317456" expanded="true" signature="15796:15840" ph="/**...*/" />
-            <marker date="1524028317456" expanded="true" signature="15879:15979" ph="{...}" />
-            <marker date="1524028317456" expanded="true" signature="15986:16134" ph="/**...*/" />
-            <marker date="1524028317456" expanded="true" signature="16178:16831" ph="{...}" />
-            <marker date="1524028317456" expanded="true" signature="16837:16940" ph="/**...*/" />
-            <marker date="1524028317456" expanded="true" signature="16971:17815" ph="{...}" />
-            <marker date="1524028317456" expanded="true" signature="17217:17488" ph="{...}" />
-            <marker date="1524028317456" expanded="true" signature="17291:17470" ph="{...}" />
-            <marker date="1524028317456" expanded="true" signature="17571:17739" ph="{...}" />
-            <marker date="1524028317456" expanded="true" signature="17645:17721" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="885">
-          <caret line="60" column="13" lean-forward="false" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
-          <folding>
-            <marker date="1524001379955" expanded="false" signature="0:18" ph="/**...*/" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/Registration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="41" column="13" lean-forward="false" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
-          <folding>
-            <marker date="1524001379956" expanded="true" signature="9573:9597" ph="//..." />
-            <marker date="1524001379956" expanded="true" signature="9573:12069" ph="{...}" />
-            <marker date="1524001379956" expanded="true" signature="10186:10289" ph="//..." />
-            <marker date="1524001379956" expanded="true" signature="10357:10465" ph="//..." />
-            <marker date="1524001379956" expanded="true" signature="10709:12051" ph="{...}" />
-            <marker date="1524001379956" expanded="true" signature="10824:12029" ph="{...}" />
-            <marker date="1524001379956" expanded="true" signature="10953:11208" ph="//..." />
-            <marker date="1524001379956" expanded="true" signature="12142:12423" ph="{...}" />
-            <marker date="1524001379956" expanded="true" signature="12471:12834" ph="{...}" />
-            <marker date="1524001379956" expanded="true" signature="12840:12899" ph="/**...*/" />
-            <marker date="1524001379956" expanded="true" signature="12942:13042" ph="{...}" />
-            <marker date="1524001379956" expanded="true" signature="13048:13196" ph="/**...*/" />
-            <marker date="1524001379956" expanded="true" signature="13240:13893" ph="{...}" />
-            <marker date="1524001379956" expanded="true" signature="13899:14002" ph="/**...*/" />
-            <marker date="1524001379956" expanded="true" signature="14033:14875" ph="{...}" />
-            <marker date="1524001379956" expanded="true" signature="14279:14549" ph="{...}" />
-            <marker date="1524001379956" expanded="true" signature="14353:14531" ph="{...}" />
-            <marker date="1524001379956" expanded="true" signature="14632:14799" ph="{...}" />
-            <marker date="1524001379956" expanded="true" signature="14706:14781" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/SMSVerify.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="67" column="31" lean-forward="false" selection-start-line="67" selection-start-column="31" selection-end-line="67" selection-end-column="31" />
-          <folding>
-            <marker date="1524028317458" expanded="true" signature="3688:8112" ph="{...}" />
-            <marker date="1524028317458" expanded="true" signature="5607:8105" ph="{...}" />
-            <marker date="1524028317458" expanded="true" signature="5712:6375" ph="{...}" />
-            <marker date="1524028317458" expanded="true" signature="5730:6183" ph="//..." />
-            <marker date="1524028317458" expanded="true" signature="6465:7403" ph="{...}" />
-            <marker date="1524028317458" expanded="true" signature="6483:6635" ph="//..." />
-            <marker date="1524028317458" expanded="true" signature="7530:8104" ph="{...}" />
-            <marker date="1524028317458" expanded="true" signature="7548:7782" ph="//..." />
-            <marker date="1524028317458" expanded="true" signature="8154:8455" ph="{...}" />
-            <marker date="1524028317458" expanded="true" signature="8527:8657" ph="{...}" />
-            <marker date="1524028317458" expanded="true" signature="8742:8896" ph="{...}" />
-            <marker date="1524028317458" expanded="true" signature="8964:9495" ph="{...}" />
-            <marker date="1524028317458" expanded="true" signature="9576:9722" ph="{...}" />
-            <marker date="1524028317458" expanded="true" signature="9869:10329" ph="{...}" />
-            <marker date="1524028317458" expanded="true" signature="10415:11638" ph="{...}" />
-            <marker date="1524028317458" expanded="false" signature="10553:10698" ph="(task) → {" />
-            <marker date="1524028317458" expanded="false" signature="11628:11630" ph="}" />
-            <marker date="1524028317458" expanded="true" signature="11677:12140" ph="{...}" />
-            <marker date="1524028317458" expanded="false" signature="11787:11932" ph="(task) → {" />
-            <marker date="1524028317458" expanded="false" signature="12109:12132" ph="}" />
-            <marker date="1524028317458" expanded="false" signature="12180:12191" ph=" { " />
-            <marker date="1524028317458" expanded="false" signature="12233:12239" ph=" }" />
-            <marker date="1524028317458" expanded="false" signature="12268:12283" ph=" { " />
-            <marker date="1524028317458" expanded="false" signature="12317:12323" ph=" }" />
-            <marker date="1524028317458" expanded="true" signature="12382:14402" ph="{...}" />
-            <marker date="1524028317458" expanded="false" signature="13192:13217" ph="&quot;Code Sent&quot;" />
-            <marker date="1524028317458" expanded="false" signature="13514:13549" ph="&quot;Verification failed&quot;" />
-            <marker date="1524028317458" expanded="true" signature="14446:14693" ph="{...}" />
-            <marker date="1524028317458" expanded="true" signature="14739:14819" ph="{...}" />
-            <marker date="1524028317458" expanded="true" signature="14866:14947" ph="{...}" />
-            <marker date="1524028317458" expanded="true" signature="14998:15905" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -3285,14 +3054,129 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/Encryption.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/VenueMapSearch.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="20" column="39" lean-forward="false" selection-start-line="20" selection-start-column="39" selection-end-line="20" selection-end-column="39" />
+        <state relative-caret-position="60">
+          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/SplashScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="21" column="13" lean-forward="false" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+          <folding>
+            <marker date="1524001379956" expanded="true" signature="552:556" ph="/**...*/" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/SMSVerify.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="51" column="13" lean-forward="false" selection-start-line="51" selection-start-column="13" selection-end-line="51" selection-end-column="13" />
+          <folding>
+            <marker date="1524028317458" expanded="false" signature="10553:10698" ph="(task) → {" />
+            <marker date="1524028317458" expanded="false" signature="11628:11630" ph="}" />
+            <marker date="1524028317458" expanded="false" signature="11787:11932" ph="(task) → {" />
+            <marker date="1524028317458" expanded="false" signature="12109:12132" ph="}" />
+            <marker date="1524028317458" expanded="false" signature="12180:12191" ph=" { " />
+            <marker date="1524028317458" expanded="false" signature="12233:12239" ph=" }" />
+            <marker date="1524028317458" expanded="false" signature="12268:12283" ph=" { " />
+            <marker date="1524028317458" expanded="false" signature="12317:12323" ph=" }" />
+            <marker date="1524028317458" expanded="false" signature="13192:13217" ph="&quot;Code Sent&quot;" />
+            <marker date="1524028317458" expanded="false" signature="13514:13549" ph="&quot;Verification failed&quot;" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/Session.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/RootedCheck.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/Registration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="41" column="13" lean-forward="false" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="60" column="13" lean-forward="false" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
+          <folding>
+            <marker date="1524001379955" expanded="false" signature="0:18" ph="/**...*/" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="60" column="13" lean-forward="false" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
+          <folding>
+            <marker date="1524028317456" expanded="true" signature="1762:1770" ph="/**...*/" />
+            <marker date="1524028317456" expanded="true" signature="15796:15840" ph="/**...*/" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/ListOfToDoListsAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="37" column="37" lean-forward="true" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/ForgotPassword.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="30" column="13" lean-forward="false" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/ListActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="46" column="13" lean-forward="false" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1088#1089#0" expanded="true" />
-            <element signature="e#1117#1118#0" expanded="true" />
+            <marker date="1524001379954" expanded="true" signature="13609:13640" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/UserSession.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tyle/ido/Encryption.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2160">
+          <caret line="146" column="26" lean-forward="false" selection-start-line="146" selection-start-column="26" selection-end-line="146" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
