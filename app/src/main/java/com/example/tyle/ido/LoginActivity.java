@@ -82,6 +82,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     ArrayList<ToDoList> currentUserList = new ArrayList<>();
     String KEYFORENCRYPTION = "This is the Key I guess";
+
+    /**
+    * This method is run at the creation of the activity and setups all that is needed for this screen.
+     * It also sets up the beginnings of our authentication connections with Firebase.
+    *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,6 +111,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         Log.d(TAG, "Building new Session in login activity");
         setOnClickListeners();
 
+        /** Sets up a listen for when the user is attempting to login and starts the next screen with
+         * the encrypted bundle containing user info. */
         authchange = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -192,7 +200,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
 
-    // Add onStart and onStop methods to start and stop the authlistener
+    /** Add onStart and onStop methods to start and stop the authlistener */
     @Override
     public void onStart() {
         super.onStart();
@@ -208,7 +216,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         }
     }
 
-    // Contains check if device is rooted.
+    /** Runs when activity restarts and makes sure the device is not rooted*/
     @Override
     protected void onResume() {
         super.onResume();
@@ -219,7 +227,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         }
     }
 
-
+    /** Exit app with error and takes care of showing more information on exception problems.*/
     public void showAlertDialogAndExitApp(String message) {
         AlertDialog alertDialog = new AlertDialog.Builder(LoginActivity.this).create();
         alertDialog.setTitle("Alert");
@@ -253,7 +261,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         }
     }
 
-
+    /** This is the method that is called when the authentication process comes back from Firebase*/
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -262,10 +270,10 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {
-                Log.d(TAG, "Hey all you people: " + result.isSuccess());
+                Log.d(TAG, "Success: " + result.isSuccess());
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
-                Log.d(TAG, "Hey display name: " + account.getDisplayName());
+                Log.d(TAG, "Sucess: " + account.getDisplayName());
                 firebaseAuthWithGoogle(account);
             } else {
                 Toast.makeText(LoginActivity.this, "Login Failed!", Toast.LENGTH_SHORT).show();
@@ -273,10 +281,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         }
     }
 
+    /** Method use to authoize a user using Google Account credentials.*/
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        /** Calls sign in with firebase with Google credentials. */
         auth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -295,6 +305,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 });
     }
 
+    /** called if there is no connection to Firebase */
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
         // An unresolvable error has occurred and Google APIs (including Sign-In) will not
@@ -360,6 +371,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         }
     }
 
+    /** Setups elements within the screen and their click methods. */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

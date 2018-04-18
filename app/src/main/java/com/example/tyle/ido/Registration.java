@@ -53,13 +53,18 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private String name;
     private String password;
 
+    /**
+     * This method is run at the creation of the activity and setups all that is needed for this screen.
+     * It also sets up the beginnings of our authentication connections with Firebase.
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
         encrypter = new Encryption(KEYFORENCRYPTION);
-        // Set up the current page
+        // Set up the current screen elements
         auth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
         emailField = findViewById(R.id.userEmailId);
@@ -70,7 +75,9 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         TextView login = findViewById(R.id.sign_in_here);
 
 
-
+        /** Listener for if the user is authenticated from account creation from Firebase
+         * This doesn't allow users to create accounts with previously used emails and names.
+         * */
         authchange = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -80,6 +87,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                     // User is signed in
                     Log.d(TAG, "Name: " + name);
                     Log.d(TAG, "Name in Bytes" + name.getBytes());
+                    // Sets name of the user from input given.
                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                             .setDisplayName(name)
                             .build();
@@ -93,6 +101,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                                         Log.d(TAG, "Username: " + user.getDisplayName());
                                         Log.d(TAG, "UserID: " + user.getUid());
                                         Log.d(TAG, "UserEmail: " + user.getEmail());
+                                        /** Send an intent to SMSVerify activity to begin 2 factor authentication*/
                                         if (mAllowNavigation) {
                                             mAllowNavigation = false;
                                             Intent i = new Intent(getApplicationContext(), SMSVerify.class);
@@ -137,7 +146,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    // Add onStart and onStop methods to start and stop the authlistener
+    /** Add onStart and onStop methods to start and stop the authlistener */
     @Override
     public void onStart() {
         super.onStart();
@@ -145,6 +154,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         auth.addAuthStateListener(authchange);
     }
 
+    /** Method called if app is killed on this activity. */
     @Override
     public void onStop() {
         super.onStop();
@@ -271,7 +281,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
+    /** Method called if new options selected fromt he button. */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -283,6 +293,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
+    /** Sets up onclick methods with their corresponding elements on the screen. */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
